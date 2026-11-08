@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Craig — Bringing Companies and Contractors Together, Smarter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#F6F7FA; --bg2:#EEF1F6; --surface:#FFFFFF; --surface2:#F1F4F9;
+  --ink:#0B1526; --ink2:#33445E; --muted:#64748F; --line:#DFE5EE;
+  --navy:#081226; --navy2:#0C1B3A; --navy3:#12264F;
+  --blue:#2E6BFF; --blue-d:#1D4FD0; --blue-soft:#E4EDFF;
+  --green:#0E9F6E; --green-soft:#E2F6EC;
+  --amber:#D98A06; --amber-soft:#FCF0DA;
+  --red:#DC4446; --red-soft:#FCE7E7;
+  --violet:#6D5DF0;
+  --radius:14px; --radius-lg:20px;
+  --shadow:0 1px 2px rgba(8,18,38,.05),0 10px 30px -12px rgba(8,18,38,.14);
+  --shadow-lg:0 2px 4px rgba(8,18,38,.05),0 30px 60px -20px rgba(8,18,38,.25);
+  --nav-h:68px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#060C1B; --bg2:#081226; --surface:#0C1830; --surface2:#101F3E;
+    --ink:#EDF2FA; --ink2:#C3D0E4; --muted:#8CA0BE; --line:#1D2D4F;
+    --blue-soft:#16294F; --green-soft:#0C2E22; --amber-soft:#33260B; --red-soft:#38171B;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.5);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.35),0 30px 60px -20px rgba(0,0,0,.65);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Manrope",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Sora",sans-serif;margin:0;line-height:1.15;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+img{max-width:100%}
+::selection{background:var(--blue);color:#fff}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.page{display:none}
+.page.active{display:block;animation:pageIn .35s ease}
+@keyframes pageIn{from{transform:translateY(8px)}to{transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){.page.active{animation:none}*{transition:none!important}}
+
+/* ---------- nav ---------- */
+.topnav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topnav-in{max-width:1200px;margin:0 auto;padding:0 24px;height:var(--nav-h);display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Sora",sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;flex:none}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--blue),#5B8CFF);display:grid;place-items:center;color:#fff;flex:none}
+.logo-mark svg{width:18px;height:18px}
+.nav-links{display:flex;gap:4px;margin-left:8px}
+.nav-links a{padding:8px 13px;border-radius:9px;font-size:14.5px;font-weight:600;color:var(--ink2);transition:.18s}
+.nav-links a:hover{background:var(--surface2);color:var(--ink)}
+.nav-links a.on{color:var(--blue-d)}
+@media (prefers-color-scheme: dark){.nav-links a.on{color:#7FA6FF}}
+.nav-cta{margin-left:auto;display:flex;align-items:center;gap:10px;flex:none}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:42px;height:42px;place-items:center;color:var(--ink)}
+.burger svg{width:20px;height:20px}
+.mobile-menu{display:none;border-top:1px solid var(--line);background:var(--bg);padding:10px 24px 18px}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:11px 6px;font-weight:700;font-size:16px;border-bottom:1px solid var(--line)}
+.mobile-menu a:last-of-type{border-bottom:none}
+@media(max-width:900px){.nav-links{display:none}.burger{display:grid}.nav-cta .btn-ghost{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px;font-weight:700;font-size:15px;padding:12px 22px;border:1px solid transparent;transition:.18s;line-height:1.2}
+.btn svg{width:17px;height:17px;flex:none}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px -8px rgba(46,107,255,.6)}
+.btn-primary:hover{background:var(--blue-d);transform:translateY(-1px)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy3)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--muted);background:var(--surface)}
+.btn-light{background:#fff;color:var(--navy)}
+.btn-light:hover{background:#E8EEFB}
+.btn-outline-light{background:transparent;border-color:rgba(255,255,255,.35);color:#fff}
+.btn-outline-light:hover{border-color:#fff}
+.btn-sm{padding:9px 15px;font-size:13.5px;border-radius:9px}
+.btn-lg{padding:15px 30px;font-size:16.5px;border-radius:13px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+
+/* ---------- hero ---------- */
+.hero{background:radial-gradient(1100px 520px at 85% -10%,#1D3A7A 0%,transparent 55%),radial-gradient(800px 500px at -10% 110%,#123064 0%,transparent 50%),linear-gradient(160deg,var(--navy) 0%,var(--navy2) 60%,#0A1A3D 100%);color:#EAF0FB;overflow:hidden;position:relative}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(700px 420px at 60% 0%,#000 30%,transparent 75%)}
+.hero-in{position:relative;display:grid;grid-template-columns:1.02fr 1fr;gap:52px;padding:76px 0 92px;align-items:center}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:6px 14px 6px 8px;font-size:13px;font-weight:700;color:#C9D9F8}
+.hero-pill .dot{width:8px;height:8px;border-radius:50%;background:#34D399;box-shadow:0 0 0 4px rgba(52,211,153,.2)}
+.hero h1{font-size:clamp(38px,4.6vw,58px);font-weight:800;color:#fff;margin:22px 0 18px;letter-spacing:-.025em}
+.hero h1 .grad{background:linear-gradient(92deg,#7FA6FF,#4DD6C1);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:18.5px;color:#B9C9E6;max-width:520px;line-height:1.6}
+.hero-ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.hero-note{margin-top:18px;font-size:13.5px;color:#8FA5CC;display:flex;gap:16px;flex-wrap:wrap}
+.hero-note span{display:inline-flex;gap:6px;align-items:center}
+.hero-note svg{width:15px;height:15px;color:#4DD6C1}
+.hero-stats{display:flex;gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.12);padding-top:26px;max-width:540px}
+.hstat{flex:1}
+.hstat+.hstat{border-left:1px solid rgba(255,255,255,.12);padding-left:22px}
+.hstat b{font-family:"Sora",sans-serif;font-size:27px;color:#fff;display:block}
+.hstat small{color:#8FA5CC;font-size:12.5px;font-weight:600}
+
+/* dashboard preview */
+.preview{position:relative}
+.dash-card{background:#0D1B38;border:1px solid rgba(255,255,255,.13);border-radius:18px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);overflow:hidden;color:#DCE7F8}
+.dash-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.09)}
+.dash-top i{width:10px;height:10px;border-radius:50%;display:block}
+.dash-top .url{margin-left:8px;background:rgba(255,255,255,.07);border-radius:6px;font-size:11px;padding:3px 10px;color:#8FA5CC}
+.dash-body{display:grid;grid-template-columns:118px 1fr;min-height:308px}
+.dash-side{border-right:1px solid rgba(255,255,255,.09);padding:14px 10px;display:flex;flex-direction:column;gap:3px}
+.dash-side a{font-size:11.5px;font-weight:600;color:#93A9D1;padding:6px 9px;border-radius:7px;display:flex;gap:7px;align-items:center}
+.dash-side a.on{background:rgba(46,107,255,.25);color:#fff}
+.dash-side a svg{width:13px;height:13px}
+.dash-main{padding:16px}
+.dash-main h5{margin:0 0 3px;font-size:13px;color:#fff;font-family:"Sora",sans-serif}
+.dash-main .sub{font-size:11px;color:#8FA5CC;margin-bottom:12px}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.mini-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:9px 11px}
+.mini-stat b{display:block;font-size:15px;color:#fff;font-family:"Sora",sans-serif}
+.mini-stat small{font-size:10px;color:#8FA5CC;font-weight:600}
+.mini-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:11.5px}
+.mini-row .grow{flex:1;min-width:0}
+.mini-row b{color:#fff;font-size:12px;display:block}
+.mini-row small{color:#8FA5CC;font-size:10.5px}
+.avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;flex:none;font-family:"Sora",sans-serif}
+.av-a{background:linear-gradient(135deg,#2E6BFF,#5B8CFF)} .av-b{background:linear-gradient(135deg,#0E9F6E,#34C98E)}
+.av-c{background:linear-gradient(135deg,#D97706,#F2B33D)} .av-d{background:linear-gradient(135deg,#7C5CFC,#A78BFA)}
+.av-e{background:linear-gradient(135deg,#DB4A6B,#F2789A)} .av-f{background:linear-gradient(135deg,#0E8FA8,#3FC1D8)}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
+.tag-green{background:var(--green-soft);color:#0A7A52}.tag-amber{background:var(--amber-soft);color:#9A6204}
+.tag-blue{background:var(--blue-soft);color:var(--blue-d)}.tag-red{background:var(--red-soft);color:#B02E30}
+.tag-grey{background:var(--surface2);color:var(--muted)}
+@media (prefers-color-scheme: dark){.tag-blue{color:#8FB0FF}.tag-green{color:#3ED598}.tag-amber{color:#F2B33D}.tag-red{color:#F28B8D}}
+.tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.float-card{position:absolute;background:var(--surface);color:var(--ink);border-radius:14px;box-shadow:var(--shadow-lg);border:1px solid var(--line);padding:12px 14px;display:flex;gap:11px;align-items:center;font-size:13px;z-index:3}
+.float-card b{display:block;font-size:13.5px}
+.float-card small{color:var(--muted);font-size:12px}
+.fc1{top:-24px;right:6px;animation:floaty 6s ease-in-out infinite}
+.fc2{bottom:52px;left:-38px;animation:floaty 7s ease-in-out infinite reverse}
+.fc3{bottom:-22px;right:34px;animation:floaty 8s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media (prefers-reduced-motion: reduce){.fc1,.fc2,.fc3{animation:none}}
+.fc-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none}
+.fc-ic svg{width:18px;height:18px}
+@media(max-width:1060px){.hero-in{grid-template-columns:1fr;padding:56px 0 70px}.preview{max-width:640px}.fc2{left:-6px}}
+@media(max-width:560px){.fc1{display:none}.fc3{right:8px}.dash-body{grid-template-columns:1fr}.dash-side{display:none}.hero-stats{flex-wrap:wrap;gap:18px}.hstat{flex:1 1 40%}.hstat+.hstat{border-left:none;padding-left:0}}
+
+/* ---------- sections ---------- */
+.section{padding:88px 0}
+.section.alt{background:var(--bg2)}
+.section-head{max-width:680px;margin-bottom:48px}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.kicker{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.section-head h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.02em}
+.section-head p{color:var(--muted);font-size:17px;margin-top:14px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow)}
+.card.hoverable{transition:.2s}
+.card.hoverable:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--blue) 35%,var(--line))}
+.ic-box{width:46px;height:46px;border-radius:12px;background:var(--blue-soft);color:var(--blue-d);display:grid;place-items:center;margin-bottom:16px}
+@media (prefers-color-scheme: dark){.ic-box{color:#8FB0FF}}
+.ic-box svg{width:22px;height:22px}
+.card h3{font-size:19px;margin-bottom:9px}
+.card p{color:var(--muted);font-size:15px;line-height:1.65}
+
+/* steps */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:18px;padding:16px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:none}
+.step-num{width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:15px;display:grid;place-items:center;flex:none}
+@media (prefers-color-scheme: dark){.step-num{background:var(--blue)}}
+.step b{display:block;font-size:16px;margin-bottom:3px}
+.step p{color:var(--muted);font-size:14.5px}
+
+/* money flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1000px){.flow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.flow{grid-template-columns:1fr}}
+.flow-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px;position:relative;box-shadow:var(--shadow)}
+.flow-card .n{font-family:"Sora",sans-serif;font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.1em;margin-bottom:12px}
+.flow-card h3{font-size:16.5px;margin-bottom:8px}
+.flow-card p{color:var(--muted);font-size:14px;line-height:1.6}
+.flow-card .big{font-family:"Sora",sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-top:12px}
+.flow-card.hold{border-color:color-mix(in srgb,var(--amber) 45%,var(--line));background:linear-gradient(180deg,var(--amber-soft),var(--surface) 65%)}
+
+/* search */
+.search-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:22px}
+.search-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr auto;gap:12px}
+@media(max-width:900px){.search-row{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.search-row{grid-template-columns:1fr}}
+.field label{display:block;font-size:12.5px;font-weight:800;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;font-size:15px;background:var(--surface);color:var(--ink);transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 18%,transparent)}
+.field .err{display:none;color:var(--red);font-size:13px;font-weight:600;margin-top:5px}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--red)}
+.field.invalid .err{display:block}
+.search-meta{display:flex;justify-content:space-between;align-items:center;margin:26px 0 16px;flex-wrap:wrap;gap:10px}
+.search-meta h3{font-size:19px}
+.search-meta p{color:var(--muted);font-size:14px}
+
+/* engineer cards */
+.eng-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:1000px){.eng-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.eng-grid{grid-template-columns:1fr}}
+.eng-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow);cursor:pointer;transition:.2s;text-align:left;width:100%;color:var(--ink)}
+.eng-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--blue) 35%,var(--line))}
+.eng-head{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.eng-head .avatar{width:52px;height:52px;font-size:17px}
+.eng-head b{font-family:"Sora",sans-serif;font-size:16.5px;display:block;line-height:1.25}
+.eng-head small{color:var(--muted);font-size:13px}
+.avail{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#0A7A52}
+.avail i{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
+.avail.soon{color:#9A6204}.avail.soon i{background:var(--amber)}
+@media (prefers-color-scheme: dark){.avail{color:#3ED598}.avail.soon{color:#F2B33D}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font-size:12px;font-weight:700;background:var(--surface2);border:1px solid var(--line);color:var(--ink2);padding:4px 10px;border-radius:999px}
+.eng-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
+.eng-foot .rate{font-family:"Sora",sans-serif;font-weight:800;font-size:17px}
+.eng-foot .rate small{font-family:"Manrope";font-weight:600;color:var(--muted);font-size:12px}
+.stars{color:#E8A20C;font-size:13px;letter-spacing:1px}
+.empty-state{display:none;text-align:center;padding:52px 20px;background:var(--surface);border:1.5px dashed var(--line);border-radius:var(--radius-lg)}
+.empty-state h3{margin-bottom:8px}
+.empty-state p{color:var(--muted)}
+
+/* modal */
+.modal-back{position:fixed;inset:0;background:rgba(5,10,24,.62);backdrop-filter:blur(4px);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow-y:auto}
+.modal-back.open{display:flex}
+.modal{background:var(--surface);border-radius:22px;max-width:680px;width:100%;box-shadow:var(--shadow-lg);overflow:hidden;animation:pageIn .25s ease}
+.modal-head{padding:28px 30px 0;display:flex;gap:18px}
+.modal-head .avatar{width:68px;height:68px;font-size:22px}
+.modal-body{padding:22px 30px 30px}
+.modal-close{margin-left:auto;background:var(--surface2);border:1px solid var(--line);width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--ink);flex:none}
+.modal-close svg{width:17px;height:17px}
+.progress{height:9px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#4DD6C1);border-radius:99px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin:16px 0}
+@media(max-width:520px){.kv{grid-template-columns:1fr}}
+.kv div small{display:block;color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.kv div span{font-weight:700;font-size:15px}
+.doc-row{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:8px;font-size:14px}
+.doc-row svg{width:18px;height:18px;color:var(--blue);flex:none}
+.doc-row .grow{flex:1;font-weight:600}
+
+/* pricing */
+.toggle-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:36px;font-weight:700}
+.switch{position:relative;width:56px;height:30px;flex:none}
+.switch input{opacity:0;width:100%;height:100%;position:absolute;margin:0;cursor:pointer;z-index:2}
+.switch .track{position:absolute;inset:0;background:var(--line);border-radius:99px;transition:.2s}
+.switch .track::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:.2s}
+.switch input:checked+.track{background:var(--blue)}
+.switch input:checked+.track::after{left:29px}
+.save-tag{background:var(--green-soft);color:#0A7A52;font-size:12px;padding:3px 9px;border-radius:99px;font-weight:800}
+@media (prefers-color-scheme: dark){.save-tag{color:#3ED598}}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:880px;margin:0 auto}
+@media(max-width:760px){.price-grid{grid-template-columns:1fr}}
+.price-card{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:32px;position:relative;box-shadow:var(--shadow)}
+.price-card.featured{border-color:var(--blue);box-shadow:var(--shadow-lg)}
+.price-card .ribbon{position:absolute;top:-14px;left:32px;background:var(--green);color:#fff;font-size:12px;font-weight:800;padding:5px 13px;border-radius:99px;letter-spacing:.04em}
+.price-card .ribbon.future{background:var(--navy)}
+.price-card h3{font-size:20px;margin-bottom:6px}
+.price-card .who{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+.price{font-family:"Sora",sans-serif;font-size:46px;font-weight:800;letter-spacing:-.02em}
+.price small{font-size:15px;font-family:"Manrope";font-weight:600;color:var(--muted)}
+.price-card ul{list-style:none;margin:22px 0 26px;padding:0;display:flex;flex-direction:column;gap:11px}
+.price-card li{display:flex;gap:10px;font-size:15px;color:var(--ink2)}
+.price-card li svg{width:18px;height:18px;color:var(--green);flex:none;margin-top:2px}
+.compare{width:100%;border-collapse:collapse;margin-top:54px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;font-size:14.5px}
+.compare th,.compare td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.compare th{font-family:"Sora",sans-serif;font-size:14px;background:var(--surface2)}
+.compare td:not(:first-child),.compare th:not(:first-child){text-align:center}
+.compare tr:last-child td{border-bottom:none}
+@media(max-width:560px){.compare th,.compare td{padding:11px 10px;font-size:13px}}
+
+/* ---------- dashboard ---------- */
+.dash-shell{display:grid;grid-template-columns:248px 1fr;min-height:calc(100vh - var(--nav-h));max-width:1440px;margin:0 auto}
+.sidebar{border-right:1px solid var(--line);padding:24px 16px;background:var(--surface);position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow-y:auto}
+.side-user{display:flex;gap:12px;align-items:center;padding:6px 8px 18px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.side-user b{display:block;font-size:14.5px;line-height:1.3}
+.side-user small{color:var(--muted);font-size:12.5px}
+.side-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:14px 10px 7px}
+.side-link{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:none;padding:10px 12px;border-radius:10px;font-size:14.5px;font-weight:600;color:var(--ink2);transition:.15s}
+.side-link svg{width:18px;height:18px;flex:none}
+.side-link:hover{background:var(--surface2);color:var(--ink)}
+.side-link.on{background:var(--blue-soft);color:var(--blue-d)}
+@media (prefers-color-scheme: dark){.side-link.on{color:#8FB0FF}}
+.side-link .badge{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:99px;display:grid;place-items:center;padding:0 6px}
+.dash-content{padding:30px 32px 70px;min-width:0}
+.dash-panel{display:none}
+.dash-panel.active{display:block;animation:pageIn .3s ease}
+.dash-head{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.dash-head h2{font-size:26px}
+.dash-head p{color:var(--muted);font-size:14.5px;margin-top:4px}
+.dash-head .spacer{flex:1}
+.sample-note{display:inline-flex;gap:7px;align-items:center;background:var(--amber-soft);color:#9A6204;font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:99px}
+@media (prefers-color-scheme: dark){.sample-note{color:#F2B33D}}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+@media(max-width:1100px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.stat-grid{grid-template-columns:1fr 1fr;gap:11px}}
+.stat-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
+.stat-card small{color:var(--muted);font-weight:700;font-size:12.5px;display:flex;gap:8px;align-items:center}
+.stat-card small svg{width:16px;height:16px;color:var(--blue)}
+.stat-card b{font-family:"Sora",sans-serif;font-size:29px;display:block;margin:7px 0 3px}
+.stat-card .delta{font-size:12.5px;font-weight:700;color:#0A7A52}
+@media (prefers-color-scheme: dark){.stat-card .delta{color:#3ED598}}
+.panel-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:24px;margin-bottom:22px}
+.panel-card h3{font-size:17px;margin-bottom:4px}
+.panel-card .sub{color:var(--muted);font-size:13.5px;margin-bottom:16px}
+.list-row{display:flex;align-items:center;gap:13px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.list-row:last-child{border-bottom:none}
+.list-row .grow{flex:1;min-width:0}
+.list-row b{font-size:14.5px;display:block}
+.list-row small{color:var(--muted);font-size:13px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.quick-grid{grid-template-columns:repeat(2,1fr)}}
+.quick-btn{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius-lg);padding:18px;text-align:left;font-weight:700;font-size:14.5px;color:var(--ink);display:flex;flex-direction:column;gap:10px;transition:.18s}
+.quick-btn svg{width:22px;height:22px;color:var(--blue)}
+.quick-btn:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+.quick-btn small{color:var(--muted);font-weight:600;font-size:12.5px}
+.two-col{display:grid;grid-template-columns:1.5fr 1fr;gap:22px}
+@media(max-width:1000px){.two-col{grid-template-columns:1fr}}
+table.data{width:100%;border-collapse:collapse;font-size:14px}
+table.data th{text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.07em;padding:10px 8px;border-bottom:1.5px solid var(--line)}
+table.data td{padding:13px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.data tr:last-child td{border-bottom:none}
+table.data .num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.table-scroll{overflow-x:auto}
+@media(max-width:760px){
+  table.data.stack thead{display:none}
+  table.data.stack tr{display:block;border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:12px;background:var(--surface)}
+  table.data.stack td{display:flex;justify-content:space-between;gap:14px;border-bottom:1px dashed var(--line);padding:9px 0}
+  table.data.stack td::before{content:attr(data-l);color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+  table.data.stack td:last-child{border-bottom:none}
+}
+.hold-bar{height:7px;background:var(--surface2);border-radius:99px;overflow:hidden;min-width:90px}
+.hold-bar i{display:block;height:100%;background:var(--amber);border-radius:99px}
+.seg{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:11px;padding:4px;gap:2px}
+.seg button{border:none;background:transparent;padding:7px 16px;border-radius:8px;font-weight:700;font-size:13.5px;color:var(--muted);transition:.15s}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(8,18,38,.15)}
+
+/* calendar */
+.cal-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.cal-head h3{font-size:19px}
+.cal-nav{display:flex;gap:6px}
+.cal-nav button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink)}
+.cal-nav button svg{width:16px;height:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-dow{font-size:11.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;text-align:center;padding:6px 0}
+.cal-day{min-height:96px;border:1px solid var(--line);border-radius:12px;padding:8px;background:var(--surface);text-align:left;color:var(--ink);transition:.15s;width:100%}
+.cal-day:hover{border-color:var(--blue)}
+.cal-day.dim{opacity:.38}
+.cal-day.today{border-color:var(--blue);box-shadow:0 0 0 1.5px var(--blue)}
+.cal-day .dnum{font-weight:800;font-size:13px;font-family:"Sora",sans-serif}
+.cal-ev{font-size:10.5px;font-weight:700;border-radius:6px;padding:2.5px 6px;margin-top:5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-conf{background:var(--blue-soft);color:var(--blue-d)}
+.ev-pend{background:var(--amber-soft);color:#9A6204}
+.ev-done{background:var(--green-soft);color:#0A7A52}
+@media (prefers-color-scheme: dark){.ev-conf{color:#8FB0FF}.ev-pend{color:#F2B33D}.ev-done{color:#3ED598}}
+@media(max-width:700px){.cal-day{min-height:64px;padding:5px}.cal-ev{font-size:9px;padding:2px 4px}}
+.week-list,.day-list{display:flex;flex-direction:column;gap:10px}
+.ev-row{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--surface);cursor:pointer;transition:.15s;text-align:left;width:100%;color:var(--ink)}
+.ev-row:hover{border-color:var(--blue)}
+.ev-row .when{font-family:"Sora",sans-serif;font-weight:700;font-size:13px;background:var(--surface2);border-radius:10px;padding:9px 11px;text-align:center;flex:none;min-width:74px}
+.ev-row .grow{flex:1;min-width:0}
+.ev-row b{display:block;font-size:15px}
+.ev-row small{color:var(--muted);font-size:13px}
+
+/* toggles in settings */
+.set-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.set-row:last-child{border-bottom:none}
+.set-row .grow{flex:1}
+.set-row b{display:block;font-size:15px}
+.set-row small{color:var(--muted);font-size:13.5px}
+
+/* auth */
+.auth-wrap{min-height:calc(100vh - var(--nav-h));display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:860px){.auth-wrap{grid-template-columns:1fr}}
+.auth-side{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#C9D9F8;padding:64px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.auth-side h2{color:#fff;font-size:32px;margin-bottom:14px}
+.auth-side p{font-size:16px;line-height:1.65;max-width:420px}
+.auth-side ul{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column;gap:13px}
+.auth-side li{display:flex;gap:11px;font-size:15px;align-items:flex-start}
+.auth-side li svg{width:19px;height:19px;color:#4DD6C1;flex:none;margin-top:2px}
+@media(max-width:860px){.auth-side{display:none}}
+.auth-form{padding:56px 24px;display:flex;align-items:center;justify-content:center}
+.auth-card{width:100%;max-width:430px}
+.auth-card h2{font-size:27px;margin-bottom:8px}
+.auth-card .sub{color:var(--muted);margin-bottom:26px;font-size:15px}
+.auth-card form{display:flex;flex-direction:column;gap:16px}
+.success-box{display:none;background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 35%,transparent);border-radius:14px;padding:18px 20px;font-size:14.5px}
+.success-box.show{display:block}
+.success-box b{display:block;margin-bottom:4px;color:#0A7A52}
+@media (prefers-color-scheme: dark){.success-box b{color:#3ED598}}
+.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.role-pick button{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:16px;text-align:left;color:var(--ink);transition:.15s}
+.role-pick button.on{border-color:var(--blue);background:var(--blue-soft)}
+.role-pick b{display:block;font-size:15px;margin-bottom:3px}
+.role-pick small{color:var(--muted);font-size:12.5px}
+
+/* cta band + footer */
+.cta-band{background:linear-gradient(140deg,var(--navy),var(--navy3));border-radius:26px;padding:56px 48px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.cta-band h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:14px}
+.cta-band p{color:#B9C9E6;max-width:560px;margin:0 auto 28px;font-size:16.5px}
+.cta-band .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+.footer-row{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:22px;flex-wrap:nowrap;overflow:hidden}
+.footer-row .brand{font-family:"Sora",sans-serif;font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px;flex:none}
+.footer-row nav{display:flex;gap:18px;margin-left:auto;flex:none}
+.footer-row a,.footer-row span{font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap}
+.footer-row a:hover{color:var(--ink)}
+@media(max-width:560px){.footer-row{gap:12px;padding:0 14px}.footer-row nav{gap:12px}.footer-row a,.footer-row span{font-size:11.5px}.footer-row .hide-sm{display:none}}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,80px);background:var(--navy);color:#fff;border-radius:13px;padding:14px 20px;font-size:14.5px;font-weight:600;box-shadow:var(--shadow-lg);z-index:200;transition:.35s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+@media (prefers-color-scheme: dark){.toast{background:#1B3263}}
+
+@media(max-width:900px){
+  .dash-shell{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:14px 16px}
+  .side-user{display:none}
+  .side-label{display:none}
+  .side-nav-scroll{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .side-link{white-space:nowrap;width:auto}
+  .dash-content{padding:22px 16px 60px}
+}
+.side-nav-scroll{display:block}
+@media(max-width:900px){.side-nav-scroll{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="topnav">
+  <div class="topnav-in">
+    <a class="logo" href="#" data-nav="home">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 7h13M8 12h13M8 17h13"/><circle cx="4" cy="7" r="1.4" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="4" cy="17" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+      Craig
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#" data-nav="how">How It Works</a>
+      <a href="#" data-nav="companies">For Companies</a>
+      <a href="#" data-nav="contractors">For Contractors</a>
+      <a href="#" data-nav="membership">Membership</a>
+      <a href="#" data-nav="about">About</a>
+      <a href="#" data-nav="contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-sm" data-nav="login">Log in</button>
+      <button class="btn btn-primary btn-sm" data-nav="register">Get Started</button>
+      <button class="burger" id="burger" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" data-nav="home">Home</a>
+    <a href="#" data-nav="how">How It Works</a>
+    <a href="#" data-nav="companies">For Companies</a>
+    <a href="#" data-nav="contractors">For Contractors</a>
+    <a href="#" data-nav="membership">Membership</a>
+    <a href="#" data-nav="about">About</a>
+    <a href="#" data-nav="contact">Contact</a>
+    <a href="#" data-nav="login">Log in</a>
+    <a href="#" data-nav="dashboard">View Demo Dashboard</a>
+  </div>
+</header>
+
+<!-- ===================== HOME ===================== -->
+<main class="page active" data-page="home">
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="wrap hero-in">
+      <div>
+        <span class="hero-pill"><span class="dot"></span> Membership is free while we build our contractor base</span>
+        <h1>Bringing Companies and Contractors Together, <span class="grad">Smarter.</span></h1>
+        <p class="hero-sub">A smarter way for businesses and contractors to connect, manage information and work together through one seamless platform.</p>
+        <p class="hero-sub" style="margin-top:14px;font-size:16px">Machine down at 6am? Search by industry, skill or qualification, book a specialist engineer the same day — and let Craig handle the timesheet, the invoice and the payment.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary btn-lg" data-nav="register">Get Started — it's free
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="btn btn-outline-light btn-lg" data-nav="dashboard">Explore the Platform</button>
+        </div>
+        <div class="hero-note">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No card needed to join</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Simple, plain-English screens</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Payments held safely for 7 days</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><b><span class="count" data-count="2400">0</span>+</b><small>Contractor profiles</small></div>
+          <div class="hstat"><b><span class="count" data-count="850">0</span>+</b><small>Companies hiring</small></div>
+          <div class="hstat"><b><span class="count" data-count="96">0</span>%</b><small>Bookings filled same day</small></div>
+          <div class="hstat"><b>£<span class="count" data-count="50">0</span></b><small>Flat rate per man, per day</small></div>
+        </div>
+        <p style="font-size:12px;color:#63779E;margin-top:14px">Platform figures shown are sample figures for this concept preview.</p>
+      </div>
+
+      <div class="preview">
+        <div class="dash-card">
+          <div class="dash-top">
+            <i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i>
+            <span class="url">app.craig.example/dashboard</span>
+          </div>
+          <div class="dash-body">
+            <div class="dash-side">
+              <a class="on" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</a>
+              <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Find engineers</a>
+              <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Bookings</a>
+              <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timesheets</a>
+              <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Payments</a>
+              <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Documents</a>
+            </div>
+            <div class="dash-main">
+              <h5>Good morning, Northgate Foods</h5>
+              <p class="sub">Tuesday 10 November 2026 · 2 engineers on site today</p>
+              <div class="mini-stats">
+                <div class="mini-stat"><b>14</b><small>Active engineers</small></div>
+                <div class="mini-stat"><b>3</b><small>Requests waiting</small></div>
+                <div class="mini-stat"><b>£1,250</b><small>Held this week</small></div>
+              </div>
+              <div class="mini-row">
+                <span class="avatar av-a">DO</span>
+                <span class="grow"><b>Daniel Okafor — Mechanical</b><small>Arrives 08:00 · Line 3 conveyor repair</small></span>
+                <span class="tag tag-green"><span class="dot"></span>Confirmed</span>
+              </div>
+              <div class="mini-row">
+                <span class="avatar av-b">SW</span>
+                <span class="grow"><b>Sarah Whitfield — Electrical</b><small>Timesheet received · 2 days</small></span>
+                <span class="tag tag-amber"><span class="dot"></span>Held · day 4 of 7</span>
+              </div>
+              <div class="mini-row">
+                <span class="avatar av-d">PS</span>
+                <span class="grow"><b>Priya Sharma — Multi-skilled</b><small>Payment released · £125.00</small></span>
+                <span class="tag tag-blue"><span class="dot"></span>Released</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-card fc1">
+          <span class="avatar av-c">JM</span>
+          <span><b>James McAllister</b><small>HVAC Engineer · Available now</small></span>
+          <span class="tag tag-green">Verified</span>
+        </div>
+        <div class="float-card fc2">
+          <span class="fc-ic" style="background:var(--green-soft);color:#0A7A52"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span><b>Booking confirmed</b><small>Tomorrow, 07:30 · Apex Packaging</small></span>
+        </div>
+        <div class="float-card fc3">
+          <span class="fc-ic" style="background:var(--blue-soft);color:var(--blue-d)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+          <span><b>Thu 12 Nov</b><small>3 engineers booked · 1 slot free</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- urgent strip -->
+  <section class="section" style="padding:64px 0 8px">
+    <div class="wrap">
+      <div class="card" style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,var(--navy),var(--navy3));border:none;color:#fff;padding:36px 40px">
+        <span class="fc-ic" style="background:rgba(255,255,255,.12);color:#F2B33D;width:56px;height:56px;border-radius:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:28px;height:28px"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z" stroke-linejoin="round"/></svg></span>
+        <div style="flex:1;min-width:260px">
+          <h2 style="font-size:24px;margin-bottom:6px">Unplanned breakdown? Production stopped?</h2>
+          <p style="color:#B9C9E6;font-size:15.5px">That's exactly what Craig is built for. Post the job, pick a verified specialist near you, and have them on site fast — one flat rate of <b style="color:#fff">£50 per man, per day</b>. No ringing round agencies. No paperwork chasing.</p>
+        </div>
+        <button class="btn btn-light btn-lg" data-nav="dashboard" data-dash="find">Find an engineer now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- find engineers (home) -->
+  <section class="section" id="homeSearch">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Find specialist engineers</p>
+        <h2>Search by industry, skill or qualification</h2>
+        <p>Type what you need — a skill like “PLC fault finding”, a trade like “HVAC”, or a ticket like “F-Gas”. Every profile below is sample data for this concept preview.</p>
+      </div>
+      <div class="search-panel">
+        <form class="search-row" id="searchForm">
+          <div class="field"><label for="q">Search</label><input id="q" type="text" placeholder="Try “hydraulics” or “18th Edition”…" autocomplete="off" /></div>
+          <div class="field"><label for="fIndustry">Industry</label>
+            <select id="fIndustry"><option value="">All industries</option><option>Manufacturing</option><option>Food &amp; Drink</option><option>Logistics</option><option>Facilities</option><option>Energy &amp; Utilities</option></select></div>
+          <div class="field"><label for="fSkill">Skill</label>
+            <select id="fSkill"><option value="">All skills</option><option>Mechanical</option><option>Electrical</option><option>HVAC</option><option>Multi-skilled</option><option>Welding &amp; Fabrication</option></select></div>
+          <div class="field"><label for="fAvail">Availability</label>
+            <select id="fAvail"><option value="">Any time</option><option value="now">Available now</option><option value="soon">This week</option></select></div>
+          <div class="field"><label>&nbsp;</label><button class="btn btn-primary btn-block" type="submit">Search</button></div>
+        </form>
+      </div>
+      <div class="search-meta"><h3 id="resultTitle">Engineers near you</h3><p id="resultCount"></p></div>
+      <div class="eng-grid" id="engGrid"></div>
+      <div class="empty-state" id="engEmpty">
+        <h3>No engineers match that search</h3>
+        <p>Try removing a filter, or search for a broader skill like “Mechanical”.</p>
+        <button class="btn btn-ghost" style="margin-top:16px" id="resetSearch">Clear all filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works summary -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="kicker">How Craig works</p>
+        <h2>One simple journey, from breakdown to paid</h2>
+        <p>No complicated software to learn. If you can send a text message, you can use Craig.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-card"><p class="n">STEP 1 — SEARCH</p><h3>Find the right engineer</h3><p>Search by industry, skills and qualifications. See who's verified, rated and available near you.</p></div>
+        <div class="flow-card"><p class="n">STEP 2 — BOOK</p><h3>Book through the site</h3><p>Pick your days and confirm in a couple of taps. One clear, flat price — no surprises later.</p><p class="big">£50 <small style="font-size:13px;color:var(--muted);font-family:Manrope;font-weight:600">per man, per day</small></p></div>
+        <div class="flow-card"><p class="n">STEP 3 — TIMESHEET</p><h3>Work done, timesheet in</h3><p>The engineer sends their timesheet through Craig. We invoice the company automatically — nothing to chase.</p></div>
+        <div class="flow-card hold"><p class="n">STEP 4 — HELD, THEN PAID</p><h3>Money held safely for 7 days</h3><p>The payment is held securely for one week, so any issue can be sorted out fairly. Then it's released to the engineer, minus the £25 service fee.</p><p class="big">Paid → Held → Released</p></div>
+      </div>
+      <div style="text-align:center;margin-top:36px"><button class="btn btn-navy btn-lg" data-nav="how">See the full step-by-step</button></div>
+    </div>
+  </section>
+
+  <!-- two journeys -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Two sides, one platform</p>
+        <h2>Built for companies and contractors alike</h2>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+          <h3>For Companies</h3>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><div><b>Create a business account</b><p>Two minutes, plain questions, no jargon.</p></div></div>
+            <div class="step"><span class="step-num">2</span><div><b>Discover and manage contractors</b><p>Search verified engineers and keep your trusted list in one place.</p></div></div>
+            <div class="step"><span class="step-num">3</span><div><b>Build contractor relationships</b><p>Re-book the people who know your site, with full history at hand.</p></div></div>
+            <div class="step"><span class="step-num">4</span><div><b>Organise schedules and appointments</b><p>One calendar for every booking, shift and site visit.</p></div></div>
+            <div class="step"><span class="step-num">5</span><div><b>Manage payments and stored information</b><p>Invoices, timesheets and documents — tidy and in one place.</p></div></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:20px" data-nav="companies">See the company side</button>
+        </div>
+        <div class="card">
+          <div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 0 0 6-6L14 13l-3-3 3.7-3.7z"/></svg></div>
+          <h3>For Contractors</h3>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><div><b>Create a professional profile</b><p>Your trade, your tickets, your experience — shown properly.</p></div></div>
+            <div class="step"><span class="step-num">2</span><div><b>Add your information once</b><p>Qualifications and documents stored safely, ready for every booking.</p></div></div>
+            <div class="step"><span class="step-num">3</span><div><b>Manage your membership</b><p>Free while the network grows — clear pricing after that, no surprises.</p></div></div>
+            <div class="step"><span class="step-num">4</span><div><b>See your schedule clearly</b><p>Every job, date and site address in one simple calendar.</p></div></div>
+            <div class="step"><span class="step-num">5</span><div><b>Get paid without chasing</b><p>Send a timesheet, watch the payment move, get paid after the 7-day hold.</p></div></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:20px" data-nav="contractors">See the contractor side</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- membership teaser -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="kicker">Membership</p>
+        <h2>Free now. Fair later.</h2>
+        <p>We're building our contractor base first — so membership is completely free today. Once the network is properly established, it becomes £10 a month per profile. That's it. No hidden charges.</p>
+      </div>
+      <div style="text-align:center"><button class="btn btn-navy btn-lg" data-nav="membership">Compare membership plans</button></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Ready to get the right engineer, faster?</h2>
+        <p>Join free today — whether you run a site that can't afford downtime, or you're an engineer who wants steady, fairly-paid work.</p>
+        <div class="row">
+          <button class="btn btn-light btn-lg" data-nav="register">Create a free account</button>
+          <button class="btn btn-outline-light btn-lg" data-nav="dashboard">Look inside the dashboard</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<main class="page" data-page="how">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">How it works</p>
+        <h2>From breakdown to paid — in eight plain steps</h2>
+        <p>Here's the whole journey, exactly as it happens. Nothing hidden, nothing complicated.</p>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="card">
+          <h3 style="margin-bottom:6px">The journey</h3>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><div><b>Something breaks</b><p>A line stops, a motor burns out, a unit fails. The company needs a specialist — fast.</p></div></div>
+            <div class="step"><span class="step-num">2</span><div><b>Search Craig</b><p>Search by industry, skills or qualifications — “mechanical fitter”, “PLC”, “F-Gas” — and see verified engineers nearby.</p></div></div>
+            <div class="step"><span class="step-num">3</span><div><b>Contact &amp; book</b><p>Message the engineer through Craig and book the days you need, right there on the site.</p></div></div>
+            <div class="step"><span class="step-num">4</span><div><b>Flat-rate price agreed</b><p>The company pays <b>£50 per man, per day</b>. The price is agreed before anyone sets foot on site.</p></div></div>
+            <div class="step"><span class="step-num">5</span><div><b>Engineer sends a timesheet</b><p>When the work's done, the engineer sends their timesheet through Craig — a couple of taps.</p></div></div>
+            <div class="step"><span class="step-num">6</span><div><b>Craig invoices the company</b><p>We raise the invoice for the company. No paperwork for either side to chase.</p></div></div>
+            <div class="step"><span class="step-num">7</span><div><b>Money held securely for 7 days</b><p>The payment sits in a one-week holding window. If there's any issue with the job, there's time to sort it out fairly before money moves.</p></div></div>
+            <div class="step"><span class="step-num">8</span><div><b>Released to the engineer</b><p>After 7 days the money is released to the engineer, minus the <b>£25 service fee</b> charged to the contractor. Everyone can see the full breakdown.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:22px">
+            <h3>A worked example</h3>
+            <p style="margin-bottom:16px">Northgate Foods book <b style="color:var(--ink)">2 engineers for 3 days</b> after a conveyor breakdown:</p>
+            <table class="data">
+              <tr><td>2 men × 3 days × £50</td><td class="num">£300.00</td></tr>
+              <tr><td>Company pays Craig</td><td class="num">£300.00</td></tr>
+              <tr><td>Held securely</td><td class="num">7 days</td></tr>
+              <tr><td>Service fee (per engineer)</td><td class="num">− £25.00</td></tr>
+              <tr><td><b>Each engineer receives</b> (£150 − £25)</td><td class="num"><b>£125.00</b></td></tr>
+            </table>
+            <p style="margin-top:14px;font-size:13.5px">Sample figures shown to demonstrate how the pricing works.</p>
+          </div>
+          <div class="card">
+            <h3>Why the 7-day hold?</h3>
+            <p>It protects everyone. The company gets a fair window to raise a genuine issue. The engineer knows the money is already paid and on its way — no chasing invoices for 30 days. And every payment shows its state clearly: <b style="color:var(--ink)">Paid → Held → Released</b>.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+              <span class="tag tag-blue"><span class="dot"></span>Paid by company</span>
+              <span class="tag tag-amber"><span class="dot"></span>Held · 7-day window</span>
+              <span class="tag tag-green"><span class="dot"></span>Released to engineer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head center"><p class="kicker">Questions</p><h2>The bits people ask us</h2></div>
+      <div class="grid3">
+        <div class="card"><h3>What does the company pay?</h3><p>£50 per man, per day booked. That's the rate agreed up front — the invoice matches it exactly.</p></div>
+        <div class="card"><h3>What does the engineer receive?</h3><p>Their day rate minus a £25 service fee per booking payout. The full breakdown is shown on every payment, before and after release.</p></div>
+        <div class="card"><h3>What does membership cost?</h3><p>Nothing, for now. Membership is free while we build the contractor base. Once established, it will be £10 a month per profile — announced well in advance.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:38px"><button class="btn btn-primary btn-lg" data-nav="register">Join free today</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOR COMPANIES ===================== -->
+<main class="page" data-page="companies">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">For companies</p>
+        <h2>When it breaks, you need a person — not a phone queue</h2>
+        <p>Craig puts verified specialist engineers within reach, at a flat £50 per man per day, with every booking, timesheet and invoice handled in one place.</p>
+      </div>
+      <div class="grid3">
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h3>Search that speaks your language</h3><p>Search by the words you actually use on the shop floor — trade, skill or ticket. “Time-served fitter”, “18th Edition”, “F-Gas Cat 1”.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Verified before they arrive</h3><p>Qualifications and identity checked on every profile, so the person who turns up is the person you booked.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>One calendar, zero confusion</h3><p>Every booking, arrival time and site visit in a single calendar your whole team can see.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h3>Timesheets without the chase</h3><p>Engineers submit timesheets in the platform. You approve with one tap — we handle the invoice.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><h3>Payments you can follow</h3><p>See every payment move from Paid, to Held for 7 days, to Released. A fair window to raise any issue.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div><h3>Your trusted bench</h3><p>Save the engineers who know your kit. Re-book them in seconds when the next job lands.</p></div>
+      </div>
+      <div class="card" style="margin-top:26px;display:flex;gap:22px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px"><h3>See it from a company's chair</h3><p>Open the demo dashboard — sample bookings, timesheets waiting for approval, and payments in the 7-day hold.</p></div>
+        <button class="btn btn-primary btn-lg" data-nav="dashboard">Open the company dashboard</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOR CONTRACTORS ===================== -->
+<main class="page" data-page="contractors">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">For contractors</p>
+        <h2>Your trade is your living. Craig treats it that way.</h2>
+        <p>Build one proper profile, get found by companies who need your exact skills, and get paid without chasing anyone. Free to join while the network grows.</p>
+      </div>
+      <div class="grid3">
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></div><h3>A profile that does you justice</h3><p>Trades, tickets, years on the tools, the kit you've worked on — presented professionally to every company searching.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg></div><h3>Verified means trusted</h3><p>Upload your qualifications once. Companies see the verified badge and book with confidence.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Your week at a glance</h3><p>Jobs, dates, site addresses and arrival times in one simple calendar — no diary mix-ups.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14h6M9 17h4"/></svg></div><h3>Timesheets in two taps</h3><p>Finish the job, send the timesheet from your phone. Craig raises the invoice for you.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><h3>Paid, held, released — visible</h3><p>Watch your money at every step. After the 7-day hold it's released to you, minus the £25 service fee — shown clearly on every payout.</p></div>
+        <div class="card hoverable"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 1.6 2.6 5 3.2 5 1.4 5 3.3-2.2 3-5 3-5-1.1-5-3"/></svg></div><h3>Free while we grow</h3><p>Membership costs nothing today. When the base is established it becomes £10 a month per profile — and we'll tell you well before that day.</p></div>
+      </div>
+      <div class="card" style="margin-top:26px">
+        <h3>What a payout looks like</h3>
+        <p style="margin-bottom:14px">Three days on a breakdown job at the standard rate:</p>
+        <table class="data stack">
+          <tr><td data-l="Work">3 days × £50 per day</td><td class="num" data-l="Gross">£150.00</td></tr>
+          <tr><td data-l="Fee">Craig service fee</td><td class="num" data-l="Fee">− £25.00</td></tr>
+          <tr><td data-l="Status">Held securely</td><td data-l="Hold"><span class="tag tag-amber"><span class="dot"></span>7 days</span></td></tr>
+          <tr><td data-l="You receive"><b>You receive</b></td><td class="num" data-l="Net"><b>£125.00</b></td></tr>
+        </table>
+        <button class="btn btn-primary btn-lg" style="margin-top:20px" data-nav="register">Create your free profile</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== MEMBERSHIP ===================== -->
+<main class="page" data-page="membership">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="kicker">Membership plans</p>
+        <h2>Free while we build. £10 a month when we're established.</h2>
+        <p>Right now, membership is free — we're growing the contractor base first. When the network is established, the standard profile becomes £10 a month. We'll always tell you before any charge begins.</p>
+      </div>
+      <div class="toggle-row">
+        <span>Monthly</span>
+        <label class="switch"><input type="checkbox" id="billingToggle" /><span class="track"></span></label>
+        <span>Annual</span><span class="save-tag">2 months free</span>
+      </div>
+      <div class="price-grid">
+        <div class="price-card featured">
+          <span class="ribbon">CURRENT — LIVE NOW</span>
+          <h3>Launch Membership</h3>
+          <p class="who">For contractors joining while the network grows.</p>
+          <p class="price">£0<small> / forever, during launch</small></p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Full professional profile</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Appear in company searches</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Unlimited bookings &amp; timesheets</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Calendar &amp; payment tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Qualification verification</li>
+          </ul>
+          <button class="btn btn-primary btn-block btn-lg plan-btn" data-plan="Launch Membership (Free)">Join free now</button>
+          <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:12px">No card required. This is the plan everyone starts on.</p>
+        </div>
+        <div class="price-card">
+          <span class="ribbon future">COMING LATER</span>
+          <h3>Standard Profile</h3>
+          <p class="who">Applies once a strong contractor base is established.</p>
+          <p class="price"><span id="stdPrice">£10</span><small id="stdPer"> / month, per profile</small></p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Everything in Launch Membership</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Keep your profile live in searches</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Full booking &amp; payment history</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Priority support</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Cancel any time</li>
+          </ul>
+          <button class="btn btn-ghost btn-block btn-lg plan-btn" data-plan="Standard Profile (£10/month)">Register interest</button>
+          <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:12px">Not charged today. We'll write to you well before it starts.</p>
+        </div>
+      </div>
+
+      <table class="compare">
+        <tr><th>What's included</th><th>Launch (Free)</th><th>Standard (£10/mo)</th></tr>
+        <tr><td>Professional profile</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Appear in company searches</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Bookings, calendar &amp; timesheets</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Payment tracking (Paid → Held → Released)</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Qualification verification</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Priority support</td><td>—</td><td>✓</td></tr>
+        <tr><td>Price</td><td><b>£0 — current</b></td><td><b>£10/month per profile — later</b></td></tr>
+      </table>
+      <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:20px">Companies book engineers at a flat £50 per man, per day. A £25 service fee applies to contractor payouts. All figures are the platform's working rates for this concept.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== ABOUT ===================== -->
+<main class="page" data-page="about">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">About Craig</p>
+        <h2>Built by someone who knows the tools — for people who'd rather be on them</h2>
+        <p>Craig exists because finding a good specialist engineer at short notice is still far harder than it should be — and because good engineers deserve steady work and prompt, visible payment.</p>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="card">
+          <h3>The problem we saw</h3>
+          <p style="margin-bottom:14px">When a machine stops, production stops. Companies ring round agencies, leave voicemails, and lose hours — sometimes days. Meanwhile, skilled independent engineers with exactly the right tickets are sitting ten miles away, invisible.</p>
+          <p>And when the work does get done, the old way buries everyone in paper: timesheets chased by phone, invoices raised by hand, payment terms stretched to 30 days and beyond.</p>
+        </div>
+        <div class="card">
+          <h3>What Craig does differently</h3>
+          <p style="margin-bottom:14px">One platform where a company can search by industry, skill or qualification, book a verified engineer the same day, and follow the money in plain sight: <b style="color:var(--ink)">£50 per man, per day</b>, invoiced by us, <b style="color:var(--ink)">held securely for 7 days</b> so any issue can be resolved fairly, then released to the engineer.</p>
+          <p>Everything is written in plain English and built big-button simple — because the people who keep Britain's machines running shouldn't need a computer science degree to get booked and paid.</p>
+        </div>
+      </div>
+      <div class="grid3" style="margin-top:26px">
+        <div class="card"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z" stroke-linejoin="round"/></svg></div><h3>Fast when it matters</h3><p>Built for the unplanned breakdown — the 6am phone call no plant manager wants.</p></div>
+        <div class="card"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5" stroke-linecap="round"/></svg></div><h3>Honest, flat pricing</h3><p>One rate, agreed up front. Fees shown on every payout, before the money moves.</p></div>
+        <div class="card"><div class="ic-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h3>People first</h3><p>Free membership while the community grows, and a 7-day hold that treats both sides fairly.</p></div>
+      </div>
+      <div class="cta-band" style="margin-top:44px">
+        <h2>Come and see the platform from inside</h2>
+        <p>The demo dashboard uses sample companies, engineers and payments so you can click through the real journey.</p>
+        <div class="row"><button class="btn btn-light btn-lg" data-nav="dashboard">Open the demo dashboard</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== CONTACT ===================== -->
+<main class="page" data-page="contact">
+  <section class="section" style="padding-top:64px">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Contact</p>
+        <h2>Talk to a human</h2>
+        <p>Questions about joining, booking, or how the money works? Send a message and we'll come back to you. Prefer to keep it simple — so do we.</p>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="card">
+          <form id="contactForm" novalidate style="display:flex;flex-direction:column;gap:16px">
+            <div class="field"><label for="cName">Your name</label><input id="cName" type="text" placeholder="e.g. Mark Thompson" /><span class="err">Please tell us your name.</span></div>
+            <div class="field"><label for="cEmail">Email address</label><input id="cEmail" type="email" placeholder="you@company.co.uk" /><span class="err">Please enter a valid email address.</span></div>
+            <div class="field"><label for="cType">I am a…</label><select id="cType"><option>Company looking for engineers</option><option>Contractor / engineer</option><option>Something else</option></select></div>
+            <div class="field"><label for="cMsg">Your message</label><textarea id="cMsg" rows="4" placeholder="Tell us what you need…"></textarea><span class="err">Please write a short message.</span></div>
+            <button class="btn btn-primary btn-lg" type="submit">Send message</button>
+          </form>
+          <div class="success-box" id="contactSuccess" style="margin-top:18px"><b>Message noted — thank you.</b>This is a concept preview, so the message hasn't been sent anywhere. In the live product, this is where we'd reply to your email.</div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:20px">
+            <h3>Quick answers</h3>
+            <div class="steps">
+              <div class="step"><span class="step-num">?</span><div><b>How fast can I get an engineer?</b><p>Most searches show engineers available today or tomorrow. Book in minutes.</p></div></div>
+              <div class="step"><span class="step-num">?</span><div><b>What does it cost to join?</b><p>Nothing right now. Membership is free while the contractor base is being built.</p></div></div>
+              <div class="step"><span class="step-num">?</span><div><b>When do engineers get paid?</b><p>Payment is held securely for 7 days after the timesheet, then released minus the £25 service fee.</p></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Contact details</h3>
+            <p style="margin-top:8px">Real contact details will be added here when the business launches. For now, please use the message form — in this concept preview it demonstrates the journey only.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== LOGIN ===================== -->
+<main class="page" data-page="login">
+  <div class="auth-wrap">
+    <div class="auth-side">
+      <h2>Welcome back.</h2>
+      <p>Your bookings, engineers, timesheets and payments — all where you left them.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>3 timesheets waiting for your approval</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>£1,250 currently in the 7-day hold</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>2 engineers on site tomorrow</li>
+      </ul>
+    </div>
+    <div class="auth-form">
+      <div class="auth-card">
+        <h2>Log in to Craig</h2>
+        <p class="sub">Demo preview — any email and password will take you to the sample dashboard.</p>
+        <form id="loginForm" novalidate>
+          <div class="field"><label for="lEmail">Email address</label><input id="lEmail" type="email" placeholder="you@company.co.uk" autocomplete="email" /><span class="err">Please enter a valid email address.</span></div>
+          <div class="field"><label for="lPass">Password</label><input id="lPass" type="password" placeholder="Your password" autocomplete="current-password" /><span class="err">Please enter your password (6+ characters for this demo).</span></div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Log in</button>
+        </form>
+        <p style="text-align:center;margin-top:18px;color:var(--muted);font-size:14.5px">New to Craig? <a href="#" data-nav="register" style="color:var(--blue);font-weight:800">Create a free account</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== REGISTER ===================== -->
+<main class="page" data-page="register">
+  <div class="auth-wrap">
+    <div class="auth-side">
+      <h2>Join free — it takes two minutes.</h2>
+      <p>Membership is free while we build our contractor base. No card, no contract, no obligation.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Companies: find verified engineers from day one</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Contractors: one profile, every booking in one place</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Later, membership becomes £10/month per profile — announced in advance</li>
+      </ul>
+    </div>
+    <div class="auth-form">
+      <div class="auth-card">
+        <h2>Create your free account</h2>
+        <p class="sub">First — which one are you?</p>
+        <form id="regForm" novalidate>
+          <div class="role-pick" id="rolePick">
+            <button type="button" class="on" data-role="company"><b>I'm a Company</b><small>I need engineers</small></button>
+            <button type="button" data-role="contractor"><b>I'm a Contractor</b><small>I am an engineer</small></button>
+          </div>
+          <div class="field"><label for="rName">Full name</label><input id="rName" type="text" placeholder="e.g. Mark Thompson" autocomplete="name" /><span class="err">Please tell us your name.</span></div>
+          <div class="field"><label for="rOrg" id="rOrgLabel">Company name</label><input id="rOrg" type="text" placeholder="e.g. Northgate Foods Ltd" /><span class="err">Please add this — it helps engineers know who's booking.</span></div>
+          <div class="field"><label for="rEmail">Email address</label><input id="rEmail" type="email" placeholder="you@company.co.uk" autocomplete="email" /><span class="err">Please enter a valid email address.</span></div>
+          <div class="field"><label for="rPass">Create a password</label><input id="rPass" type="password" placeholder="At least 8 characters" autocomplete="new-password" /><span class="err">Please use at least 8 characters.</span></div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Create free account</button>
+          <p style="text-align:center;color:var(--muted);font-size:13px">Demo preview — no real account is created and nothing is stored.</p>
+        </form>
+        <div class="success-box" id="regSuccess"><b>You're in — welcome to Craig.</b><span id="regSuccessText">This demo hasn't created a real account. In the live product you'd now land in your dashboard.</span><br /><button class="btn btn-primary" style="margin-top:14px" data-nav="dashboard">Go to the demo dashboard</button></div>
+        <p style="text-align:center;margin-top:18px;color:var(--muted);font-size:14.5px">Already joined? <a href="#" data-nav="login" style="color:var(--blue);font-weight:800">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== DASHBOARD ===================== -->
+<main class="page" data-page="dashboard">
+  <div class="dash-shell">
+    <aside class="sidebar">
+      <div class="side-user">
+        <span class="avatar av-a" style="width:42px;height:42px;font-size:14px">NF</span>
+        <div><b>Northgate Foods Ltd</b><small>Company account · Manchester</small></div>
+      </div>
+      <div class="side-nav-scroll" id="sideNav">
+        <p class="side-label">Menu</p>
+        <button class="side-link on" data-panel="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</button>
+        <button class="side-link" data-panel="find"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Find Engineers</button>
+        <button class="side-link" data-panel="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Bookings &amp; Calendar</button>
+        <button class="side-link" data-panel="timesheets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timesheets<span class="badge">3</span></button>
+        <button class="side-link" data-panel="payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Payments</button>
+        <p class="side-label">Account</p>
+        <button class="side-link" data-panel="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>Contractor Profile</button>
+        <button class="side-link" data-panel="documents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Documents &amp; Info</button>
+        <button class="side-link" data-panel="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5h0a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings &amp; Security</button>
+        <button class="side-link" data-panel="membershippanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7s-4 0-4-2.5S12 2 12 7zM12 7s4 0 4-2.5S12 2 12 7z"/></svg>My Membership</button>
+      </div>
+    </aside>
+
+    <div class="dash-content">
+      <!-- OVERVIEW -->
+      <section class="dash-panel active" data-panel="overview">
+        <div class="dash-head">
+          <div><h2>Good morning, Northgate Foods</h2><p>Tuesday 10 November 2026 · Here's what's happening today.</p></div>
+          <div class="spacer"></div>
+          <span class="sample-note">Sample data — demo dashboard</span>
+          <button class="btn btn-primary" data-goto-panel="find">+ Book an engineer</button>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Active engineers</small><b>14</b><span class="delta">2 on site today</span></div>
+          <div class="stat-card"><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 8L9 4l-3 8H2"/></svg>Requests waiting</small><b>3</b><span class="delta">Timesheets to approve</span></div>
+          <div class="stat-card"><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Upcoming bookings</small><b>6</b><span class="delta">Next: tomorrow, 07:30</span></div>
+          <div class="stat-card"><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Held in 7-day window</small><b>£1,250</b><span class="delta">Releases from Thu 12 Nov</span></div>
+        </div>
+        <div class="quick-grid" style="margin-bottom:22px">
+          <button class="quick-btn" data-goto-panel="find"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Find an engineer<small>Search skills &amp; tickets</small></button>
+          <button class="quick-btn" data-goto-panel="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12v6M9 15h6"/></svg>New booking<small>Pick days &amp; confirm</small></button>
+          <button class="quick-btn" data-goto-panel="timesheets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Approve timesheets<small>3 waiting for you</small></button>
+          <button class="quick-btn" data-goto-panel="payments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>View payments<small>Paid → Held → Released</small></button>
+        </div>
+        <div class="two-col">
+          <div class="panel-card">
+            <h3>Upcoming appointments</h3><p class="sub">Your next bookings on site.</p>
+            <div class="list-row"><span class="avatar av-a">DO</span><div class="grow"><b>Daniel Okafor — Mechanical Engineer</b><small>Today · Arrives 08:00 · Line 3 conveyor repair</small></div><span class="tag tag-green"><span class="dot"></span>Confirmed</span></div>
+            <div class="list-row"><span class="avatar av-c">JM</span><div class="grow"><b>James McAllister — HVAC Engineer</b><small>Tomorrow · 07:30 · Chiller unit service</small></div><span class="tag tag-green"><span class="dot"></span>Confirmed</span></div>
+            <div class="list-row"><span class="avatar av-f">LC</span><div class="grow"><b>Laura Chen — Electrical Engineer</b><small>Thu 12 Nov · 09:00 · Motor &amp; drive fault-finding</small></div><span class="tag tag-amber"><span class="dot"></span>Requested</span></div>
+            <div class="list-row"><span class="avatar av-b">SW</span><div class="grow"><b>Sarah Whitfield — Electrical Engineer</b><small>Mon 16 Nov · 08:00 · Control panel upgrade</small></div><span class="tag tag-green"><span class="dot"></span>Confirmed</span></div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:14px" data-goto-panel="calendar">Open full calendar</button>
+          </div>
+          <div class="panel-card">
+            <h3>Notifications</h3><p class="sub">Latest activity on your account.</p>
+            <div class="list-row"><span class="fc-ic" style="background:var(--amber-soft);color:#9A6204"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><div class="grow"><b>Timesheet received</b><small>Sarah Whitfield · 2 days · 20 mins ago</small></div></div>
+            <div class="list-row"><span class="fc-ic" style="background:var(--green-soft);color:#0A7A52"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div class="grow"><b>Payment released</b><small>Priya Sharma · £125.00 · Yesterday</small></div></div>
+            <div class="list-row"><span class="fc-ic" style="background:var(--blue-soft);color:var(--blue-d)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div class="grow"><b>Booking request sent</b><small>Laura Chen · Thu 12 Nov · 2 hrs ago</small></div></div>
+            <div class="list-row"><span class="fc-ic" style="background:var(--surface2);color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg></span><div class="grow"><b>Invoice INV-2043 ready</b><small>£300.00 · 2 engineers, 3 days</small></div></div>
+          </div>
+        </div>
+        <div class="panel-card">
+          <h3>Recent activity</h3><p class="sub">Everything in one tidy list.</p>
+          <div class="list-row"><span class="avatar av-b">SW</span><div class="grow"><b>Sarah Whitfield submitted a timesheet</b><small>Electrical — 2 days on the packaging line</small></div><span class="tag tag-amber"><span class="dot"></span>To approve</span></div>
+          <div class="list-row"><span class="avatar av-d">PS</span><div class="grow"><b>Payment released to Priya Sharma</b><small>£150.00 gross − £25.00 service fee = £125.00</small></div><span class="tag tag-green"><span class="dot"></span>Released</span></div>
+          <div class="list-row"><span class="avatar av-e">TB</span><div class="grow"><b>Tom Becker completed a booking</b><small>Gearbox change — signed off by site manager</small></div><span class="tag tag-blue"><span class="dot"></span>Complete</span></div>
+          <div class="list-row"><span class="avatar av-a">DO</span><div class="grow"><b>Daniel Okafor booked for today</b><small>Line 3 conveyor repair · £50/day</small></div><span class="tag tag-green"><span class="dot"></span>Confirmed</span></div>
+        </div>
+        <div class="panel-card">
+          <h3>Payment summary — November</h3><p class="sub">Sample figures for this demo.</p>
+          <div class="stat-grid" style="margin-bottom:0">
+            <div class="stat-card" style="box-shadow:none"><small>Paid out to engineers</small><b>£2,475</b></div>
+            <div class="stat-card" style="box-shadow:none"><small>Held (7-day window)</small><b>£1,250</b></div>
+            <div class="stat-card" style="box-shadow:none"><small>Invoices this month</small><b>9</b></div>
+            <div class="stat-card" style="box-shadow:none"><small>Days booked</small><b>57</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FIND -->
+      <section class="dash-panel" data-panel="find">
+        <div class="dash-head">
+          <div><h2>Find Engineers</h2><p>Search by industry, skill or qualification. Click any engineer to see their full profile.</p></div>
+          <div class="spacer"></div><span class="sample-note">Sample profiles</span>
+        </div>
+        <div class="search-panel" style="margin-bottom:8px">
+          <form class="search-row" id="dashSearchForm">
+            <div class="field"><label for="dq">Search</label><input id="dq" type="text" placeholder="Try “welding” or “F-Gas”…" autocomplete="off" /></div>
+            <div class="field"><label for="dIndustry">Industry</label>
+              <select id="dIndustry"><option value="">All industries</option><option>Manufacturing</option><option>Food &amp; Drink</option><option>Logistics</option><option>Facilities</option><option>Energy &amp; Utilities</option></select></div>
+            <div class="field"><label for="dSkill">Skill</label>
+              <select id="dSkill"><option value="">All skills</option><option>Mechanical</option><option>Electrical</option><option>HVAC</option><option>Multi-skilled</option><option>Welding &amp; Fabrication</option></select></div>
+            <div class="field"><label for="dAvail">Availability</label>
+              <select id="dAvail"><option value="">Any time</option><option value="now">Available now</option><option value="soon">This week</option></select></div>
+            <div class="field"><label>&nbsp;</label><button class="btn btn-primary btn-block" type="submit">Search</button></div>
+          </form>
+        </div>
+        <div class="search-meta"><h3 id="dashResultTitle">All engineers</h3><p id="dashResultCount"></p></div>
+        <div class="eng-grid" id="dashEngGrid"></div>
+        <div class="empty-state" id="dashEngEmpty"><h3>No engineers match</h3><p>Try a broader search.</p></div>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="dash-panel" data-panel="calendar">
+        <div class="dash-head">
+          <div><h2>Bookings &amp; Calendar</h2><p>Every appointment, arrival and availability — click a day or an event for details.</p></div>
+          <div class="spacer"></div>
+          <button class="btn btn-primary" id="newBookingBtn">+ New booking</button>
+        </div>
+        <div class="panel-card">
+          <div class="cal-head">
+            <div class="cal-nav">
+              <button id="calPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <button id="calNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+            <h3 id="calTitle">November 2026</h3>
+            <div class="spacer" style="flex:1"></div>
+            <div class="seg" id="calSeg">
+              <button class="on" data-view="month">Month</button>
+              <button data-view="week">Week</button>
+              <button data-view="day">Day</button>
+            </div>
+          </div>
+          <div id="calMonth">
+            <div class="cal-grid" style="margin-bottom:2px">
+              <span class="cal-dow">Mon</span><span class="cal-dow">Tue</span><span class="cal-dow">Wed</span><span class="cal-dow">Thu</span><span class="cal-dow">Fri</span><span class="cal-dow">Sat</span><span class="cal-dow">Sun</span>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+          <div id="calList" class="week-list" style="display:none"></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--muted);font-weight:600">
+            <span><span class="tag tag-blue"><span class="dot"></span></span> Confirmed booking</span>
+            <span><span class="tag tag-amber"><span class="dot"></span></span> Requested / waiting</span>
+            <span><span class="tag tag-green"><span class="dot"></span></span> Completed</span>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="panel-card">
+            <h3>Upcoming appointments</h3><p class="sub">Next on site.</p>
+            <div id="upcomingList"></div>
+          </div>
+          <div class="panel-card">
+            <h3>Engineer availability</h3><p class="sub">Who can start when — sample data.</p>
+            <div class="list-row"><span class="avatar av-a">DO</span><div class="grow"><b>Daniel Okafor</b><small>Mechanical · Manchester</small></div><span class="avail"><i></i>Now</span></div>
+            <div class="list-row"><span class="avatar av-c">JM</span><div class="grow"><b>James McAllister</b><small>HVAC · Glasgow</small></div><span class="avail"><i></i>Now</span></div>
+            <div class="list-row"><span class="avatar av-b">SW</span><div class="grow"><b>Sarah Whitfield</b><small>Electrical · Leeds</small></div><span class="avail soon"><i></i>Thu 12 Nov</span></div>
+            <div class="list-row"><span class="avatar av-d">PS</span><div class="grow"><b>Priya Sharma</b><small>Multi-skilled · Birmingham</small></div><span class="avail"><i></i>Now</span></div>
+            <div class="list-row"><span class="avatar av-e">TB</span><div class="grow"><b>Tom Becker</b><small>Mechanical · Sheffield</small></div><span class="avail soon"><i></i>Mon 16 Nov</span></div>
+            <div class="list-row"><span class="avatar av-f">LC</span><div class="grow"><b>Laura Chen</b><small>Electrical · London</small></div><span class="avail"><i></i>Now</span></div>
+          </div>
+        </div>
+        <div class="panel-card" id="bookingFormCard" style="display:none">
+          <h3>Book an engineer</h3><p class="sub">Simple form — pick who, pick the days, done. £50 per man, per day.</p>
+          <form id="bookingForm" novalidate>
+            <div class="grid2" style="gap:16px">
+              <div class="field"><label for="bEng">Engineer</label>
+                <select id="bEng"><option value="">Choose an engineer…</option></select><span class="err">Please choose an engineer.</span></div>
+              <div class="field"><label for="bDate">Start date</label><input id="bDate" type="date" value="2026-11-12" /><span class="err">Please pick a date.</span></div>
+              <div class="field"><label for="bDays">Number of days</label>
+                <select id="bDays"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></div>
+              <div class="field"><label for="bJob">What needs doing?</label><input id="bJob" type="text" placeholder="e.g. Conveyor line repair" /><span class="err">A short description helps the engineer prepare.</span></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:18px">
+              <p style="font-weight:800;font-size:16px">Total: <span id="bTotal">£100.00</span> <small style="color:var(--muted);font-weight:600">(£50 × days)</small></p>
+              <div style="flex:1"></div>
+              <button class="btn btn-ghost" type="button" id="bookingCancel">Cancel</button>
+              <button class="btn btn-primary" type="submit">Send booking request</button>
+            </div>
+          </form>
+          <div class="success-box" id="bookingSuccess" style="margin-top:16px"><b>Booking request sent.</b><span id="bookingSuccessText"></span> This is a demo — no real booking has been made.</div>
+        </div>
+      </section>
+
+      <!-- TIMESHEETS -->
+      <section class="dash-panel" data-panel="timesheets">
+        <div class="dash-head">
+          <div><h2>Timesheets &amp; Invoices</h2><p>Engineers send timesheets here. You approve — Craig raises the invoice and starts the 7-day hold.</p></div>
+          <div class="spacer"></div><span class="sample-note">Sample data</span>
+        </div>
+        <div class="panel-card">
+          <h3>Waiting for your approval</h3><p class="sub">Check the days, then approve. Nothing is paid until you do.</p>
+          <div class="table-scroll"><table class="data stack" id="tsTable">
+            <thead><tr><th>Engineer</th><th>Job</th><th>Days</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td data-l="Engineer"><b>Sarah Whitfield</b><br /><small style="color:var(--muted)">Electrical · Packaging line</small></td><td data-l="Job">TS-1182</td><td data-l="Days">2</td><td class="num" data-l="Amount">£100.00</td><td data-l="Status"><span class="tag tag-amber"><span class="dot"></span>To approve</span></td><td><button class="btn btn-primary btn-sm approve-btn">Approve</button></td></tr>
+              <tr><td data-l="Engineer"><b>Tom Becker</b><br /><small style="color:var(--muted)">Mechanical · Gearbox change</small></td><td data-l="Job">TS-1179</td><td data-l="Days">3</td><td class="num" data-l="Amount">£150.00</td><td data-l="Status"><span class="tag tag-amber"><span class="dot"></span>To approve</span></td><td><button class="btn btn-primary btn-sm approve-btn">Approve</button></td></tr>
+              <tr><td data-l="Engineer"><b>James McAllister</b><br /><small style="color:var(--muted)">HVAC · Chiller service</small></td><td data-l="Job">TS-1175</td><td data-l="Days">1</td><td class="num" data-l="Amount">£50.00</td><td data-l="Status"><span class="tag tag-amber"><span class="dot"></span>To approve</span></td><td><button class="btn btn-primary btn-sm approve-btn">Approve</button></td></tr>
+            </tbody>
+          </table></div>
+          <p id="tsEmpty" style="display:none;color:var(--muted);padding:10px 0">All caught up — no timesheets waiting.</p>
+        </div>
+        <div class="panel-card">
+          <h3>Invoices</h3><p class="sub">Raised automatically by Craig when a timesheet is approved.</p>
+          <div class="table-scroll"><table class="data stack">
+            <thead><tr><th>Invoice</th><th>For</th><th>Amount</th><th>Issued</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td data-l="Invoice"><b>INV-2043</b></td><td data-l="For">2 engineers · 3 days · Conveyor breakdown</td><td class="num" data-l="Amount">£300.00</td><td data-l="Issued">9 Nov 2026</td><td data-l="Status"><span class="tag tag-blue"><span class="dot"></span>Paid</span></td></tr>
+              <tr><td data-l="Invoice"><b>INV-2039</b></td><td data-l="For">Priya Sharma · 3 days · PPM cover</td><td class="num" data-l="Amount">£150.00</td><td data-l="Issued">2 Nov 2026</td><td data-l="Status"><span class="tag tag-green"><span class="dot"></span>Settled</span></td></tr>
+              <tr><td data-l="Invoice"><b>INV-2031</b></td><td data-l="For">Daniel Okafor · 4 days · Line 2 repair</td><td class="num" data-l="Amount">£200.00</td><td data-l="Issued">26 Oct 2026</td><td data-l="Status"><span class="tag tag-green"><span class="dot"></span>Settled</span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- PAYMENTS -->
+      <section class="dash-panel" data-panel="payments">
+        <div class="dash-head">
+          <div><h2>Payments</h2><p>Follow every pound: paid by you, held securely for 7 days, then released to the engineer.</p></div>
+          <div class="spacer"></div><span class="sample-note">Sample data — not real money</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><small>Paid this month</small><b>£3,725</b><span class="delta">74 man-days booked</span></div>
+          <div class="stat-card"><small>Held right now</small><b>£1,250</b><span class="delta">In the 7-day window</span></div>
+          <div class="stat-card"><small>Released to engineers</small><b>£2,475</b><span class="delta">After fees, this month</span></div>
+          <div class="stat-card"><small>Next release</small><b>Thu 12 Nov</b><span class="delta">£425.00 to 3 engineers</span></div>
+        </div>
+        <div class="panel-card">
+          <h3>Money on the move</h3><p class="sub">Each payment shows its state. Held payments count down their 7 days.</p>
+          <div class="table-scroll"><table class="data stack">
+            <thead><tr><th>Engineer / Job</th><th>Company paid</th><th>Service fee</th><th>Engineer receives</th><th>State</th><th>Hold progress</th></tr></thead>
+            <tbody>
+              <tr><td data-l="Engineer"><b>Sarah Whitfield</b><br /><small style="color:var(--muted)">2 days · Packaging line</small></td><td class="num" data-l="Paid">£100.00</td><td class="num" data-l="Fee">− £25.00</td><td class="num" data-l="Receives">£75.00</td><td data-l="State"><span class="tag tag-amber"><span class="dot"></span>Held · day 4 of 7</span></td><td data-l="Progress"><div class="hold-bar"><i style="width:57%"></i></div></td></tr>
+              <tr><td data-l="Engineer"><b>Daniel Okafor</b><br /><small style="color:var(--muted)">5 days · Line 3 repair</small></td><td class="num" data-l="Paid">£250.00</td><td class="num" data-l="Fee">− £25.00</td><td class="num" data-l="Receives">£225.00</td><td data-l="State"><span class="tag tag-amber"><span class="dot"></span>Held · day 2 of 7</span></td><td data-l="Progress"><div class="hold-bar"><i style="width:29%"></i></div></td></tr>
+              <tr><td data-l="Engineer"><b>Priya Sharma</b><br /><small style="color:var(--muted)">3 days · PPM cover</small></td><td class="num" data-l="Paid">£150.00</td><td class="num" data-l="Fee">− £25.00</td><td class="num" data-l="Receives">£125.00</td><td data-l="State"><span class="tag tag-green"><span class="dot"></span>Released · 9 Nov</span></td><td data-l="Progress"><div class="hold-bar"><i style="width:100%;background:var(--green)"></i></div></td></tr>
+              <tr><td data-l="Engineer"><b>Tom Becker</b><br /><small style="color:var(--muted)">4 days · Gearbox &amp; pumps</small></td><td class="num" data-l="Paid">£200.00</td><td class="num" data-l="Fee">− £25.00</td><td class="num" data-l="Receives">£175.00</td><td data-l="State"><span class="tag tag-blue"><span class="dot"></span>Paid · hold starts on approval</span></td><td data-l="Progress"><div class="hold-bar"><i style="width:4%"></i></div></td></tr>
+            </tbody>
+          </table></div>
+          <p style="font-size:13.5px;color:var(--muted);margin-top:14px">The £25 service fee is charged to the contractor on each payout and is always shown before release. Held money is held securely for the full 7 days so any issue with a job can be raised and resolved.</p>
+        </div>
+        <div class="two-col">
+          <div class="panel-card">
+            <h3>Payment history</h3><p class="sub">Recent settled payments.</p>
+            <div class="list-row"><div class="grow"><b>Priya Sharma — released</b><small>9 Nov · INV-2039</small></div><span class="num">£125.00</span></div>
+            <div class="list-row"><div class="grow"><b>Daniel Okafor — released</b><small>30 Oct · INV-2031</small></div><span class="num">£175.00</span></div>
+            <div class="list-row"><div class="grow"><b>Laura Chen — released</b><small>24 Oct · INV-2026</small></div><span class="num">£75.00</span></div>
+            <div class="list-row"><div class="grow"><b>James McAllister — released</b><small>18 Oct · INV-2019</small></div><span class="num">£225.00</span></div>
+          </div>
+          <div class="panel-card">
+            <h3>Saved payment method</h3><p class="sub">Sample card — demonstration only.</p>
+            <div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span class="grow">Company debit card ···· 4471</span><span class="tag tag-grey">Default</span></div>
+            <div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M4 18h16M6 18v-7M10 18v-7M14 18v-7M18 18v-7M2 11l10-6 10 6z"/></svg><span class="grow">Bank transfer — business account on file</span></div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="showToast('Demo only — no real payment method can be added here.')">Add a payment method</button>
+            <h3 style="margin-top:24px">Billing history</h3>
+            <div class="list-row"><div class="grow"><b>November 2026</b><small>9 invoices</small></div><span class="num">£3,725</span></div>
+            <div class="list-row"><div class="grow"><b>October 2026</b><small>11 invoices</small></div><span class="num">£4,150</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section class="dash-panel" data-panel="profile">
+        <div class="dash-head">
+          <div><h2>Contractor Profile</h2><p>What a company sees when they open an engineer's profile. Click engineers in Find to preview others.</p></div>
+          <div class="spacer"></div><span class="sample-note">Sample profile</span>
+        </div>
+        <div id="profileDetail"></div>
+      </section>
+
+      <!-- DOCUMENTS -->
+      <section class="dash-panel" data-panel="documents">
+        <div class="dash-head">
+          <div><h2>Documents &amp; Information</h2><p>Your business information and documents, kept in one organised place.</p></div>
+          <div class="spacer"></div><span class="sample-note">Sample data</span>
+        </div>
+        <div class="two-col">
+          <div class="panel-card">
+            <h3>Business information</h3><p class="sub">Kept up to date by you — used on invoices and bookings.</p>
+            <div class="kv">
+              <div><small>Company</small><span>Northgate Foods Ltd</span></div>
+              <div><small>Site</small><span>Manchester — Unit 4, Trafford Park</span></div>
+              <div><small>Main contact</small><span>Mark Thompson, Site Manager</span></div>
+              <div><small>Email</small><span>ops@northgatefoods.example</span></div>
+              <div><small>Phone</small><span>0161 000 0000 (sample)</span></div>
+              <div><small>Accounts contact</small><span>L. Patel — Finance</span></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Demo — editing is disabled in this preview.')">Edit details</button>
+          </div>
+          <div class="panel-card">
+            <h3>Documents</h3><p class="sub">Stored against your account, ready when needed.</p>
+            <div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span class="grow">Company insurance certificate.pdf</span><span class="tag tag-green">On file</span></div>
+            <div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span class="grow">Site access &amp; induction pack.pdf</span><span class="tag tag-green">On file</span></div>
+            <div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span class="grow">Purchase order terms.pdf</span><span class="tag tag-green">On file</span></div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="showToast('Demo — file upload is disabled in this preview.')">+ Upload a document</button>
+          </div>
+        </div>
+        <div class="panel-card">
+          <h3>Who can see what</h3><p class="sub">Simple access controls — you decide what engineers see before a booking.</p>
+          <div class="set-row"><div class="grow"><b>Site address</b><small>Shown to an engineer once their booking is confirmed.</small></div><label class="switch"><input type="checkbox" checked /><span class="track"></span></label></div>
+          <div class="set-row"><div class="grow"><b>Site contact number</b><small>Shared with booked engineers only.</small></div><label class="switch"><input type="checkbox" checked /><span class="track"></span></label></div>
+          <div class="set-row"><div class="grow"><b>Full document library</b><small>Only your own team can open stored documents.</small></div><label class="switch"><input type="checkbox" /><span class="track"></span></label></div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="dash-panel" data-panel="settings">
+        <div class="dash-head">
+          <div><h2>Settings &amp; Security</h2><p>Plain controls for your account — no technical knowledge needed.</p></div>
+          <div class="spacer"></div><span class="sample-note">Demo settings</span>
+        </div>
+        <div class="panel-card">
+          <h3>Keeping your account safe</h3><p class="sub">Simple switches. Changes in this demo aren't saved anywhere.</p>
+          <div class="set-row"><div class="grow"><b>Two-step sign-in</b><small>Asks for a code from your phone as well as your password.</small></div><label class="switch"><input type="checkbox" checked class="demo-toggle" /><span class="track"></span></label></div>
+          <div class="set-row"><div class="grow"><b>Email me about new bookings</b><small>A message whenever an engineer confirms or a timesheet arrives.</small></div><label class="switch"><input type="checkbox" checked class="demo-toggle" /><span class="track"></span></label></div>
+          <div class="set-row"><div class="grow"><b>Email me when money is released</b><small>So accounts always know where a payment stands.</small></div><label class="switch"><input type="checkbox" checked class="demo-toggle" /><span class="track"></span></label></div>
+          <div class="set-row"><div class="grow"><b>Show my company in “recently hiring”</b><small>Helps engineers see you're active. Turn off any time.</small></div><label class="switch"><input type="checkbox" class="demo-toggle" /><span class="track"></span></label></div>
+        </div>
+        <div class="panel-card">
+          <h3>Signed-in devices</h3><p class="sub">If you don't recognise one, sign it out.</p>
+          <div class="list-row"><span class="fc-ic" style="background:var(--surface2);color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div class="grow"><b>Office PC — Manchester</b><small>Signed in now · This device</small></div><span class="tag tag-green"><span class="dot"></span>Current</span></div>
+          <div class="list-row"><span class="fc-ic" style="background:var(--surface2);color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><div class="grow"><b>Mark's phone</b><small>Last used yesterday</small></div><button class="btn btn-ghost btn-sm signout-btn">Sign out</button></div>
+        </div>
+        <div class="panel-card">
+          <h3>Team access</h3><p class="sub">Who at your company can use this account.</p>
+          <div class="list-row"><span class="avatar av-a">MT</span><div class="grow"><b>Mark Thompson</b><small>Site Manager</small></div><span class="tag tag-blue">Full access</span></div>
+          <div class="list-row"><span class="avatar av-d">LP</span><div class="grow"><b>L. Patel</b><small>Finance</small></div><span class="tag tag-grey">Payments only</span></div>
+          <div class="list-row"><span class="avatar av-b">JR</span><div class="grow"><b>J. Roberts</b><small>Shift Supervisor</small></div><span class="tag tag-grey">Bookings only</span></div>
+        </div>
+      </section>
+
+      <!-- MEMBERSHIP PANEL -->
+      <section class="dash-panel" data-panel="membershippanel">
+        <div class="dash-head">
+          <div><h2>My Membership</h2><p>Your current plan and what changes later — in plain sight.</p></div>
+        </div>
+        <div class="panel-card" style="border-color:var(--green)">
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+            <span class="fc-ic" style="background:var(--green-soft);color:#0A7A52;width:52px;height:52px;border-radius:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div style="flex:1;min-width:220px">
+              <h3 style="font-size:20px">Launch Membership — Free</h3>
+              <p style="color:var(--muted);font-size:14.5px">You're on the free launch plan. It stays free while Craig builds its contractor base.</p>
+            </div>
+            <p class="price" style="font-size:36px">£0<small> / now</small></p>
+          </div>
+        </div>
+        <div class="panel-card">
+          <h3>What happens later</h3>
+          <p style="color:var(--muted);font-size:15px;line-height:1.7">Once a strong contractor base is established, profiles move to the Standard plan at <b style="color:var(--ink)">£10 per month, per profile</b>. We'll write to you well in advance — nothing will ever be charged without telling you first, and you can cancel any time.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+            <button class="btn btn-ghost plan-btn" data-plan="Standard Profile (£10/month)">Register interest in Standard</button>
+            <button class="btn btn-primary" data-nav="membership">Compare plans side by side</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-row">
+    <span class="brand"><span class="logo-mark" style="width:24px;height:24px;border-radius:7px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:13px;height:13px"><path d="M8 7h13M8 12h13M8 17h13"/></svg></span>Craig</span>
+    <span class="hide-sm">© 2026 Craig · Concept preview with sample data</span>
+    <span style="display:none">.</span>
+    <nav>
+      <a href="#" data-nav="how">How It Works</a>
+      <a href="#" data-nav="membership">Membership</a>
+      <a href="#" data-nav="about">About</a>
+      <a href="#" data-nav="contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ===================== PROFILE MODAL ===================== -->
+<div class="modal-back" id="profileModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="avatar" id="mAvatar">DO</span>
+      <div>
+        <h3 id="mName" style="font-size:22px">Engineer</h3>
+        <p id="mRole" style="color:var(--muted);font-size:14.5px"></p>
+        <p id="mAvail" style="margin-top:4px"></p>
+      </div>
+      <button class="modal-close" id="modalClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <span class="stars" id="mStars"></span>
+        <span id="mVerified"></span>
+      </div>
+      <p id="mBio" style="color:var(--muted);font-size:15px;line-height:1.65;margin-top:12px"></p>
+      <h4 style="margin:20px 0 4px;font-size:15px">Skills</h4>
+      <div class="chips" id="mSkills"></div>
+      <h4 style="margin:14px 0 4px;font-size:15px">Qualifications</h4>
+      <div class="chips" id="mQuals"></div>
+      <div class="kv">
+        <div><small>Industry</small><span id="mIndustry"></span></div>
+        <div><small>Based in</small><span id="mLoc"></span></div>
+        <div><small>Experience</small><span id="mExp"></span></div>
+        <div><small>Rate</small><span>£50 per day (standard)</span></div>
+        <div><small>Contact via Craig</small><span id="mContact"></span></div>
+        <div><small>Jobs completed</small><span id="mJobs"></span></div>
+      </div>
+      <h4 style="margin:6px 0 10px;font-size:15px">Works with</h4>
+      <div class="chips" id="mCompanies"></div>
+      <h4 style="margin:16px 0 8px;font-size:15px">Profile completeness</h4>
+      <div class="progress"><i id="mProgress" style="width:90%"></i></div>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px" id="mProgressText"></p>
+      <h4 style="margin:18px 0 10px;font-size:15px">Documents on file</h4>
+      <div id="mDocs"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+        <button class="btn btn-primary btn-lg" id="mBook" style="flex:1;min-width:200px">Book this engineer</button>
+        <button class="btn btn-ghost btn-lg" id="mMessage">Message</button>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center">Sample profile — contact details are shown through Craig only, never sold or shared elsewhere.</p>
+    </div>
+  </div>
+</div>
+
+<!-- event modal -->
+<div class="modal-back" id="eventModal" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-head">
+      <div>
+        <h3 id="eTitle" style="font-size:20px">Booking</h3>
+        <p id="eWhen" style="color:var(--muted);font-size:14px"></p>
+      </div>
+      <button class="modal-close" id="eventClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="kv">
+        <div><small>Engineer</small><span id="eEng"></span></div>
+        <div><small>Status</small><span id="eStatus"></span></div>
+        <div><small>Job</small><span id="eJob"></span></div>
+        <div><small>Cost</small><span>£50.00 (1 day)</span></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="eManage" style="flex:1">Manage booking</button>
+        <button class="btn btn-ghost" onclick="closeEvent()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ================= DATA (all sample) ================= */
+var ENGINEERS = [
+  {id:1, name:"Daniel Okafor", initials:"DO", av:"av-a", trade:"Mechanical Maintenance Engineer", skill:"Mechanical", industry:"Manufacturing", loc:"Manchester", exp:"12 years", rating:4.9, jobs:86, avail:"now", availText:"Available now",
+   skills:["Hydraulics","Pneumatics","Conveyor Systems","Gearboxes","Breakdown Repair"], quals:["NVQ Level 3 Mechanical Engineering","IOSH Working Safely","Time-Served Apprenticeship"],
+   bio:"Time-served mechanical engineer who has kept production lines running across the North West for over a decade. First call for conveyor, gearbox and hydraulic breakdowns.", companies:["Northgate Foods","Halloran Logistics"], complete:96, contact:"Messages answered within the hour"},
+  {id:2, name:"Sarah Whitfield", initials:"SW", av:"av-b", trade:"Electrical Maintenance Engineer", skill:"Electrical", industry:"Food & Drink", loc:"Leeds", exp:"9 years", rating:4.8, jobs:64, avail:"soon", availText:"Free from Thu 12 Nov",
+   skills:["PLC Fault Finding","3-Phase Systems","Control Panels","Motors & Drives"], quals:["18th Edition Wiring Regs","City & Guilds 2391 Inspection & Testing"],
+   bio:"Electrical engineer specialising in fault-finding under pressure — PLCs, control panels and drive systems in food production environments.", companies:["Northgate Foods","Apex Packaging"], complete:92, contact:"Messages answered same day"},
+  {id:3, name:"James McAllister", initials:"JM", av:"av-c", trade:"HVAC & Refrigeration Engineer", skill:"HVAC", industry:"Facilities", loc:"Glasgow", exp:"14 years", rating:5.0, jobs:112, avail:"now", availText:"Available now",
+   skills:["Air Conditioning","Refrigeration","Ventilation","Chiller Systems"], quals:["F-Gas Category 1","NVQ Level 3 Refrigeration & AC"],
+   bio:"Fourteen years on commercial HVAC and refrigeration — chillers, cold stores and air handling units. Calm, methodical, and quick to diagnose.", companies:["Halloran Logistics","Braemar Hotels Group"], complete:100, contact:"Messages answered within the hour"},
+  {id:4, name:"Priya Sharma", initials:"PS", av:"av-d", trade:"Multi-Skilled Maintenance Engineer", skill:"Multi-skilled", industry:"Manufacturing", loc:"Birmingham", exp:"8 years", rating:4.9, jobs:58, avail:"now", availText:"Available now",
+   skills:["Mechanical & Electrical","PPM","Welding","Fault Diagnosis","Pumps"], quals:["HNC Engineering","MIG & TIG Welding Certs"],
+   bio:"Genuinely multi-skilled — equally at home with a welder or a multimeter. Popular for planned maintenance cover and holiday relief.", companies:["Apex Packaging","Northgate Foods"], complete:88, contact:"Messages answered same day"},
+  {id:5, name:"Tom Becker", initials:"TB", av:"av-e", trade:"Mechanical Fitter", skill:"Mechanical", industry:"Logistics", loc:"Sheffield", exp:"17 years", rating:4.7, jobs:131, avail:"soon", availText:"Free from Mon 16 Nov",
+   skills:["Gearboxes","Pumps","Bearings","Shaft Alignment","Breakdown Repair"], quals:["Time-Served Apprenticeship","NVQ Level 3 Mechanical Fitting"],
+   bio:"Old-school fitter with seventeen years on rotating equipment. If it spins, pumps or drives, Tom has rebuilt it.", companies:["Halloran Logistics"], complete:94, contact:"Messages answered same day"},
+  {id:6, name:"Laura Chen", initials:"LC", av:"av-f", trade:"Electrical Maintenance Engineer", skill:"Electrical", industry:"Energy & Utilities", loc:"London", exp:"7 years", rating:4.8, jobs:47, avail:"now", availText:"Available now",
+   skills:["Fault Diagnosis","Motors & Drives","Control Panels","Preventive Maintenance"], quals:["EAL Level 3 Electrical Engineering","18th Edition Wiring Regs"],
+   bio:"Electrical maintenance engineer from the utilities sector — methodical fault diagnosis on motors, drives and control systems.", companies:["Thames Utility Partners"], complete:90, contact:"Messages answered within the hour"}
+];
+
+/* Calendar events — November 2026. d = day of month */
+var EVENTS = [
+  {d:3,  title:"DO — Line 2 repair", eng:"Daniel Okafor", job:"Line 2 conveyor repair", status:"done", time:"08:00"},
+  {d:5,  title:"PS — PPM cover", eng:"Priya Sharma", job:"Planned maintenance cover", status:"done", time:"07:30"},
+  {d:9,  title:"SW — Packaging line", eng:"Sarah Whitfield", job:"Electrical fault-finding, packaging line", status:"done", time:"08:00"},
+  {d:10, title:"DO — Line 3 conveyor", eng:"Daniel Okafor", job:"Line 3 conveyor repair", status:"conf", time:"08:00"},
+  {d:11, title:"JM — Chiller service", eng:"James McAllister", job:"Chiller unit service", status:"conf", time:"07:30"},
+  {d:12, title:"LC — Motor fault-finding", eng:"Laura Chen", job:"Motor & drive fault-finding", status:"pend", time:"09:00"},
+  {d:13, title:"DO — Line 3 follow-up", eng:"Daniel Okafor", job:"Line 3 follow-up inspection", status:"conf", time:"08:00"},
+  {d:16, title:"SW — Control panels", eng:"Sarah Whitfield", job:"Control panel upgrade", status:"conf", time:"08:00"},
+  {d:17, title:"TB — Gearbox change", eng:"Tom Becker", job:"Gearbox change, bay 2", status:"pend", time:"07:00"},
+  {d:19, title:"JM — Cold store check", eng:"James McAllister", job:"Cold store temperature fault", status:"conf", time:"08:30"},
+  {d:23, title:"PS — PPM cover", eng:"Priya Sharma", job:"Planned maintenance cover", status:"pend", time:"07:30"}
+];
+var STATUS_LABEL = {conf:"Confirmed", pend:"Requested — waiting", done:"Completed"};
+var STATUS_CLASS = {conf:"ev-conf", pend:"ev-pend", done:"ev-done"};
+
+/* ================= NAVIGATION ================= */
+function goToPage(name, panel){
+  document.querySelectorAll(".page").forEach(function(p){ p.classList.toggle("active", p.dataset.page===name); });
+  document.querySelectorAll("#navLinks a").forEach(function(a){ a.classList.toggle("on", a.dataset.nav===name); });
+  document.getElementById("mobileMenu").classList.remove("open");
+  window.scrollTo({top:0});
+  if(name==="dashboard" && panel){ setPanel(panel); }
+}
+function setPanel(name){
+  document.querySelectorAll(".dash-panel").forEach(function(p){ p.classList.toggle("active", p.dataset.panel===name); });
+  document.querySelectorAll("#sideNav .side-link").forEach(function(b){ b.classList.toggle("on", b.dataset.panel===name); });
+  window.scrollTo({top:0});
+}
+document.addEventListener("click", function(e){
+  var nav = e.target.closest("[data-nav]");
+  if(nav){ e.preventDefault(); goToPage(nav.dataset.nav, nav.dataset.dash || null); return; }
+  var gp = e.target.closest("[data-goto-panel]");
+  if(gp){ setPanel(gp.dataset.gotoPanel); }
+});
+document.getElementById("burger").addEventListener("click", function(){
+  document.getElementById("mobileMenu").classList.toggle("open");
+});
+document.querySelectorAll("#sideNav .side-link").forEach(function(b){
+  b.addEventListener("click", function(){ setPanel(b.dataset.panel); });
+});
+
+/* ================= COUNTERS ================= */
+function animateCount(el){
+  var target = parseInt(el.dataset.count,10), start = null, dur = 1300;
+  function step(ts){
+    if(!start) start = ts;
+    var p = Math.min((ts-start)/dur, 1);
+    el.textContent = Math.round(target * (1-Math.pow(1-p,3))).toLocaleString("en-GB");
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+var counted = false;
+function runCounters(){
+  if(counted) return; counted = true;
+  document.querySelectorAll(".count").forEach(animateCount);
+}
+if("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ runCounters(); io.disconnect(); } });
+  },{threshold:.3});
+  io.observe(document.querySelector(".hero-stats"));
+} else { runCounters(); }
+
+/* ================= ENGINEER CARDS ================= */
+function starStr(r){ return "★★★★★".slice(0, Math.round(r)) + " " + r.toFixed(1); }
+function engCard(e){
+  return '<button class="eng-card" data-eng="'+e.id+'">' +
+    '<span class="eng-head"><span class="avatar '+e.av+'">'+e.initials+'</span>' +
+    '<span><b>'+e.name+'</b><small>'+e.trade+' · '+e.loc+'</small></span></span>' +
+    '<span class="avail'+(e.avail==="soon"?" soon":"")+'"><i></i>'+e.availText+'</span>' +
+    '<span class="chips">'+e.skills.slice(0,3).map(function(s){return '<span class="chip">'+s+'</span>';}).join("")+'</span>' +
+    '<span class="chips" style="margin-top:0">'+e.quals.slice(0,2).map(function(s){return '<span class="chip" style="background:var(--blue-soft);border-color:transparent;color:var(--blue-d)">'+s+'</span>';}).join("")+'</span>' +
+    '<span class="eng-foot"><span><span class="stars">'+starStr(e.rating)+'</span><br /><small style="color:var(--muted);font-size:12px">'+e.jobs+' jobs done</small></span>' +
+    '<span class="rate">£50<small> /day</small></span></span></button>';
+}
+function filterEngineers(q, industry, skill, avail){
+  q = (q||"").trim().toLowerCase();
+  return ENGINEERS.filter(function(e){
+    if(industry && e.industry!==industry) return false;
+    if(skill && e.skill!==skill) return false;
+    if(avail && e.avail!==avail) return false;
+    if(q){
+      var hay = (e.name+" "+e.trade+" "+e.skill+" "+e.industry+" "+e.loc+" "+e.skills.join(" ")+" "+e.quals.join(" ")).toLowerCase();
+      if(hay.indexOf(q)===-1) return false;
+    }
+    return true;
+  });
+}
+function renderGrid(gridId, emptyId, titleId, countId, list, title){
+  var grid = document.getElementById(gridId);
+  grid.innerHTML = list.map(engCard).join("");
+  document.getElementById(emptyId).style.display = list.length ? "none" : "block";
+  grid.style.display = list.length ? "" : "none";
+  if(titleId) document.getElementById(titleId).textContent = title;
+  if(countId) document.getElementById(countId).textContent = list.length + (list.length===1 ? " engineer" : " engineers") + " · £50/day standard rate";
+}
+renderGrid("engGrid","engEmpty","resultTitle","resultCount",ENGINEERS,"Engineers near you");
+renderGrid("dashEngGrid","dashEngEmpty","dashResultTitle","dashResultCount",ENGINEERS,"All engineers");
+
+function wireSearch(formId, ids, grid, empty, title, count){
+  var form = document.getElementById(formId);
+  function run(ev){
+    if(ev) ev.preventDefault();
+    var list = filterEngineers(document.getElementById(ids.q).value, document.getElementById(ids.ind).value, document.getElementById(ids.sk).value, document.getElementById(ids.av).value);
+    renderGrid(grid, empty, title, count, list, list.length===ENGINEERS.length ? "Engineers near you" : "Search results");
+  }
+  form.addEventListener("submit", run);
+  ["ind","sk","av"].forEach(function(k){ document.getElementById(ids[k]).addEventListener("change", run); });
+  document.getElementById(ids.q).addEventListener("input", run);
+  return run;
+}
+var runHomeSearch = wireSearch("searchForm",{q:"q",ind:"fIndustry",sk:"fSkill",av:"fAvail"},"engGrid","engEmpty","resultTitle","resultCount");
+wireSearch("dashSearchForm",{q:"dq",ind:"dIndustry",sk:"dSkill",av:"dAvail"},"dashEngGrid","dashEngEmpty","dashResultTitle","dashResultCount");
+document.getElementById("resetSearch").addEventListener("click", function(){
+  ["q","fIndustry","fSkill","fAvail"].forEach(function(id){ document.getElementById(id).value=""; });
+  runHomeSearch();
+});
+
+/* ================= PROFILE MODAL + PANEL ================= */
+var currentEng = ENGINEERS[0];
+function openProfile(id){
+  var e = ENGINEERS.filter(function(x){return x.id===id;})[0];
+  if(!e) return;
+  currentEng = e;
+  document.getElementById("mAvatar").className = "avatar " + e.av;
+  document.getElementById("mAvatar").textContent = e.initials;
+  document.getElementById("mName").textContent = e.name;
+  document.getElementById("mRole").textContent = e.trade + " · " + e.loc;
+  document.getElementById("mAvail").innerHTML = '<span class="avail'+(e.avail==="soon"?" soon":"")+'"><i></i>'+e.availText+'</span>';
+  document.getElementById("mStars").textContent = starStr(e.rating);
+  document.getElementById("mVerified").innerHTML = '<span class="tag tag-green"><span class="dot"></span>Identity &amp; qualifications verified</span>';
+  document.getElementById("mBio").textContent = e.bio;
+  document.getElementById("mSkills").innerHTML = e.skills.map(function(s){return '<span class="chip">'+s+'</span>';}).join("");
+  document.getElementById("mQuals").innerHTML = e.quals.map(function(s){return '<span class="chip" style="background:var(--blue-soft);border-color:transparent;color:var(--blue-d)">'+s+'</span>';}).join("");
+  document.getElementById("mIndustry").textContent = e.industry;
+  document.getElementById("mLoc").textContent = e.loc;
+  document.getElementById("mExp").textContent = e.exp;
+  document.getElementById("mContact").textContent = e.contact;
+  document.getElementById("mJobs").textContent = e.jobs + " completed";
+  document.getElementById("mCompanies").innerHTML = e.companies.map(function(s){return '<span class="chip">'+s+'</span>';}).join("");
+  document.getElementById("mProgress").style.width = e.complete + "%";
+  document.getElementById("mProgressText").textContent = e.complete + "% complete — qualifications, documents and bank details all on file.";
+  document.getElementById("mDocs").innerHTML = e.quals.map(function(s){
+    return '<div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span class="grow">'+s+'</span><span class="tag tag-green">Verified</span></div>';
+  }).join("");
+  document.getElementById("profileModal").classList.add("open");
+  renderProfilePanel(e);
+}
+function renderProfilePanel(e){
+  var host = document.getElementById("profileDetail");
+  host.innerHTML =
+  '<div class="panel-card"><div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">' +
+    '<span class="avatar '+e.av+'" style="width:64px;height:64px;font-size:20px">'+e.initials+'</span>' +
+    '<div style="flex:1;min-width:220px"><h3 style="font-size:21px">'+e.name+'</h3>' +
+    '<p style="color:var(--muted);font-size:14.5px">'+e.trade+' · '+e.loc+' · '+e.exp+' experience</p>' +
+    '<p style="margin-top:6px"><span class="stars">'+starStr(e.rating)+'</span> &nbsp;<span class="tag tag-green"><span class="dot"></span>Verified</span> &nbsp;<span class="avail'+(e.avail==="soon"?" soon":"")+'"><i></i>'+e.availText+'</span></p></div>' +
+    '<div style="text-align:right"><p class="price" style="font-size:30px">£50<small> /day</small></p><button class="btn btn-primary panel-book" style="margin-top:8px">Book '+e.name.split(" ")[0]+'</button></div>' +
+  '</div>' +
+  '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin-top:16px">'+e.bio+'</p>' +
+  '<h4 style="margin:18px 0 4px;font-size:15px">Skills</h4><div class="chips">'+e.skills.map(function(s){return '<span class="chip">'+s+'</span>';}).join("")+'</div>' +
+  '<h4 style="margin:12px 0 4px;font-size:15px">Qualifications</h4><div class="chips">'+e.quals.map(function(s){return '<span class="chip" style="background:var(--blue-soft);border-color:transparent;color:var(--blue-d)">'+s+'</span>';}).join("")+'</div>' +
+  '<div class="kv"><div><small>Industry</small><span>'+e.industry+'</span></div><div><small>Jobs completed</small><span>'+e.jobs+'</span></div>' +
+  '<div><small>Contact</small><span>'+e.contact+'</span></div><div><small>Works with</small><span>'+e.companies.join(", ")+'</span></div></div>' +
+  '<h4 style="margin:6px 0 8px;font-size:15px">Profile completeness — '+e.complete+'%</h4><div class="progress"><i style="width:'+e.complete+'%"></i></div>' +
+  '<h4 style="margin:18px 0 10px;font-size:15px">Documents &amp; information on file</h4>' +
+  e.quals.map(function(s){ return '<div class="doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span class="grow">'+s+'</span><span class="tag tag-green">Verified</span></div>'; }).join("") +
+  '</div>';
+  host.querySelector(".panel-book").addEventListener("click", function(){ startBooking(e); });
+}
+renderProfilePanel(ENGINEERS[0]);
+document.addEventListener("click", function(e){
+  var card = e.target.closest("[data-eng]");
+  if(card) openProfile(parseInt(card.dataset.eng,10));
+});
+document.getElementById("modalClose").addEventListener("click", function(){ document.getElementById("profileModal").classList.remove("open"); });
+document.getElementById("profileModal").addEventListener("click", function(e){ if(e.target===this) this.classList.remove("open"); });
+document.getElementById("mMessage").addEventListener("click", function(){
+  showToast("Demo — in the live product this opens a message thread with " + currentEng.name + ".");
+});
+document.getElementById("mBook").addEventListener("click", function(){
+  document.getElementById("profileModal").classList.remove("open");
+  goToPage("dashboard","calendar");
+  startBooking(currentEng);
+});
+
+/* ================= TOAST ================= */
+var toastTimer = null;
+function showToast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 4200);
+}
+
+/* ================= CALENDAR ================= */
+var calCursor = {y:2026, m:10}; /* Nov 2026 (0-based) */
+var calView = "month";
+var selectedDay = 10;
+var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+function eventsOn(y,m,d){
+  if(y!==2026 || m!==10) return [];
+  return EVENTS.filter(function(ev){ return ev.d===d; });
+}
+function statusTag(s){
+  if(s==="conf") return '<span class="tag tag-blue"><span class="dot"></span>Confirmed</span>';
+  if(s==="pend") return '<span class="tag tag-amber"><span class="dot"></span>Requested</span>';
+  return '<span class="tag tag-green"><span class="dot"></span>Completed</span>';
+}
+function renderCalendar(){
+  var y = calCursor.y, m = calCursor.m;
+  document.getElementById("calTitle").textContent = MONTHS[m] + " " + y;
+  var monthEl = document.getElementById("calMonth"), listEl = document.getElementById("calList");
+  if(calView==="month"){
+    monthEl.style.display=""; listEl.style.display="none";
+    var first = new Date(y,m,1);
+    var startOffset = (first.getDay()+6)%7; /* Monday first */
+    var daysIn = new Date(y,m+1,0).getDate();
+    var daysPrev = new Date(y,m,0).getDate();
+    var html = "";
+    for(var i=0;i<42;i++){
+      var dnum, dim=false, dy, dm;
+      if(i<startOffset){ dnum = daysPrev-startOffset+1+i; dim=true; var pd=new Date(y,m-1,dnum); dy=pd.getFullYear(); dm=pd.getMonth(); }
+      else if(i>=startOffset+daysIn){ dnum = i-startOffset-daysIn+1; dim=true; var nd=new Date(y,m+1,dnum); dy=nd.getFullYear(); dm=nd.getMonth(); }
+      else { dnum = i-startOffset+1; dy=y; dm=m; }
+      var evs = (!dim) ? eventsOn(y,m,dnum) : [];
+      var isToday = (!dim && dnum===10 && m===10 && y===2026);
+      html += '<button class="cal-day'+(dim?" dim":"")+(isToday?" today":"")+'" data-day="'+dnum+'" data-dim="'+(dim?1:0)+'"><span class="dnum">'+dnum+'</span>' +
+        evs.map(function(ev){ return '<span class="cal-ev '+STATUS_CLASS[ev.status]+'">'+ev.title+'</span>'; }).join("") + '</button>';
+      if(i>=startOffset+daysIn && (i+1)%7===0) break;
+    }
+    document.getElementById("calGrid").innerHTML = html;
+  } else {
+    monthEl.style.display="none"; listEl.style.display="";
+    var days = [];
+    if(calView==="week"){
+      var base = new Date(y,m,selectedDay);
+      var dow = (base.getDay()+6)%7;
+      var monday = new Date(y,m,selectedDay-dow);
+      for(var k=0;k<7;k++){ var dt=new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+k); days.push(dt); }
+      document.getElementById("calTitle").textContent = "Week of " + days[0].getDate() + " " + MONTHS[days[0].getMonth()] + " " + days[0].getFullYear();
+    } else {
+      days = [new Date(y,m,selectedDay)];
+      document.getElementById("calTitle").textContent = selectedDay + " " + MONTHS[m] + " " + y;
+    }
+    var out = "";
+    days.forEach(function(dt){
+      var evs = eventsOn(dt.getFullYear(), dt.getMonth(), dt.getDate());
+      var label = dt.getDate() + " " + MONTHS[dt.getMonth()].slice(0,3);
+      if(!evs.length){
+        out += '<div class="ev-row" style="cursor:default"><span class="when">'+label+'</span><span class="grow"><b style="color:var(--muted)">No bookings</b><small>Engineers available — tap “New booking” to fill this day.</small></span></div>';
+      }
+      evs.forEach(function(ev){
+        out += '<button class="ev-row" data-evday="'+ev.d+'"><span class="when">'+label+'<br />'+ev.time+'</span><span class="grow"><b>'+ev.job+'</b><small>'+ev.eng+'</small></span>'+statusTag(ev.status)+'</button>';
+      });
+    });
+    listEl.innerHTML = out;
+  }
+  /* upcoming list */
+  var up = EVENTS.filter(function(ev){ return ev.d>=10; }).slice(0,4);
+  document.getElementById("upcomingList").innerHTML = up.map(function(ev){
+    return '<button class="ev-row" data-evday="'+ev.d+'" style="margin-bottom:9px"><span class="when">'+ev.d+' Nov<br />'+ev.time+'</span><span class="grow"><b>'+ev.job+'</b><small>'+ev.eng+'</small></span>'+statusTag(ev.status)+'</button>';
+  }).join("");
+}
+renderCalendar();
+document.getElementById("calSeg").addEventListener("click", function(e){
+  var b = e.target.closest("[data-view]"); if(!b) return;
+  calView = b.dataset.view;
+  document.querySelectorAll("#calSeg button").forEach(function(x){ x.classList.toggle("on", x===b); });
+  renderCalendar();
+});
+function calShift(dir){
+  if(calView==="month"){ calCursor.m += dir; if(calCursor.m<0){calCursor.m=11;calCursor.y--;} if(calCursor.m>11){calCursor.m=0;calCursor.y++;} }
+  else if(calView==="week"){ var d=new Date(calCursor.y,calCursor.m,selectedDay+7*dir); calCursor={y:d.getFullYear(),m:d.getMonth()}; selectedDay=d.getDate(); }
+  else { var d2=new Date(calCursor.y,calCursor.m,selectedDay+dir); calCursor={y:d2.getFullYear(),m:d2.getMonth()}; selectedDay=d2.getDate(); }
+  renderCalendar();
+}
+document.getElementById("calPrev").addEventListener("click", function(){ calShift(-1); });
+document.getElementById("calNext").addEventListener("click", function(){ calShift(1); });
+document.addEventListener("click", function(e){
+  var day = e.target.closest(".cal-day");
+  if(day && day.dataset.dim==="0"){ selectedDay = parseInt(day.dataset.day,10); openDayEvents(selectedDay); return; }
+  var row = e.target.closest("[data-evday]");
+  if(row){ openEvent(parseInt(row.dataset.evday,10)); }
+});
+function openDayEvents(d){
+  var evs = eventsOn(2026,10,d);
+  if(evs.length===1){ openEvent(d); }
+  else if(evs.length>1){ calView="day"; selectedDay=d; document.querySelectorAll("#calSeg button").forEach(function(x){ x.classList.toggle("on", x.dataset.view==="day"); }); renderCalendar(); }
+  else { showToast("No bookings on " + d + " November — engineers are available. Use “New booking” to fill the day."); selectedDay=d; }
+}
+var currentEvent = null;
+function openEvent(d){
+  var ev = eventsOn(2026,10,d)[0]; if(!ev) return;
+  currentEvent = ev;
+  document.getElementById("eTitle").textContent = ev.job;
+  document.getElementById("eWhen").textContent = d + " November 2026 · Arrives " + ev.time;
+  document.getElementById("eEng").textContent = ev.eng;
+  document.getElementById("eJob").textContent = ev.job;
+  document.getElementById("eStatus").innerHTML = STATUS_LABEL[ev.status];
+  document.getElementById("eventModal").classList.add("open");
+}
+function closeEvent(){ document.getElementById("eventModal").classList.remove("open"); }
+document.getElementById("eventClose").addEventListener("click", closeEvent);
+document.getElementById("eventModal").addEventListener("click", function(e){ if(e.target===this) closeEvent(); });
+document.getElementById("eManage").addEventListener("click", function(){
+  closeEvent();
+  showToast("Demo — booking management (change day, message engineer, cancel) would open here.");
+});
+
+/* ================= BOOKING FORM ================= */
+var bEngSel = document.getElementById("bEng");
+ENGINEERS.forEach(function(e){
+  var o = document.createElement("option"); o.value = e.id; o.textContent = e.name + " — " + e.trade + " (" + e.loc + ")"; bEngSel.appendChild(o);
+});
+function updateTotal(){
+  var days = parseInt(document.getElementById("bDays").value,10) || 1;
+  document.getElementById("bTotal").textContent = "£" + (days*50).toFixed(2);
+}
+document.getElementById("bDays").addEventListener("change", updateTotal);
+updateTotal();
+function startBooking(e){
+  document.getElementById("bookingFormCard").style.display = "";
+  document.getElementById("bookingSuccess").classList.remove("show");
+  bEngSel.value = e.id;
+  document.getElementById("bookingFormCard").scrollIntoView({behavior:"smooth", block:"center"});
+}
+document.getElementById("newBookingBtn").addEventListener("click", function(){
+  document.getElementById("bookingFormCard").style.display = "";
+  document.getElementById("bookingFormCard").scrollIntoView({behavior:"smooth", block:"center"});
+});
+document.getElementById("bookingCancel").addEventListener("click", function(){
+  document.getElementById("bookingFormCard").style.display = "none";
+});
+function markInvalid(input, bad){
+  input.closest(".field").classList.toggle("invalid", bad);
+  return !bad;
+}
+document.getElementById("bookingForm").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  var ok = true;
+  ok = markInvalid(bEngSel, !bEngSel.value) && ok;
+  ok = markInvalid(document.getElementById("bDate"), !document.getElementById("bDate").value) && ok;
+  ok = markInvalid(document.getElementById("bJob"), !document.getElementById("bJob").value.trim()) && ok;
+  if(!ok) return;
+  var eng = ENGINEERS.filter(function(x){ return x.id===parseInt(bEngSel.value,10); })[0];
+  var days = parseInt(document.getElementById("bDays").value,10);
+  document.getElementById("bookingSuccessText").textContent = eng.name + " · " + days + (days===1?" day":" days") + " · £" + (days*50).toFixed(2) + " at £50/day.";
+  document.getElementById("bookingSuccess").classList.add("show");
+  showToast("Booking request sent to " + eng.name + " (demo).");
+});
+
+/* ================= TIMESHEET APPROVALS ================= */
+document.querySelectorAll(".approve-btn").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var row = btn.closest("tr");
+    var name = row.querySelector("b").textContent;
+    row.style.opacity = ".45";
+    btn.disabled = true; btn.textContent = "Approved ✓";
+    var statusCell = row.querySelector('[data-l="Status"]');
+    if(statusCell) statusCell.innerHTML = '<span class="tag tag-blue"><span class="dot"></span>Invoice raised · hold started</span>';
+    showToast("Timesheet approved for " + name + " — invoice raised, 7-day hold started (demo).");
+    var remaining = document.querySelectorAll(".approve-btn:not([disabled])").length;
+    if(remaining===0) document.getElementById("tsEmpty").style.display = "";
+  });
+});
+
+/* ================= BILLING TOGGLE + PLANS ================= */
+document.getElementById("billingToggle").addEventListener("change", function(){
+  var annual = this.checked;
+  document.getElementById("stdPrice").textContent = annual ? "£100" : "£10";
+  document.getElementById("stdPer").textContent = annual ? " / year, per profile" : " / month, per profile";
+});
+document.addEventListener("click", function(e){
+  var pb = e.target.closest(".plan-btn");
+  if(pb){
+    if(pb.dataset.plan.indexOf("Launch")===0){ goToPage("register"); }
+    else { showToast("Noted — we'll email you well before the Standard plan (" + pb.dataset.plan + ") ever starts. Nothing is charged today."); }
+  }
+});
+
+/* ================= FORMS ================= */
+function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+document.getElementById("loginForm").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  var ok = true;
+  ok = markInvalid(document.getElementById("lEmail"), !validEmail(document.getElementById("lEmail").value)) && ok;
+  ok = markInvalid(document.getElementById("lPass"), document.getElementById("lPass").value.length < 6) && ok;
+  if(!ok) return;
+  showToast("Welcome back — opening the demo dashboard.");
+  setTimeout(function(){ goToPage("dashboard","overview"); }, 500);
+});
+var regRole = "company";
+document.querySelectorAll("#rolePick button").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("#rolePick button").forEach(function(x){ x.classList.toggle("on", x===b); });
+    regRole = b.dataset.role;
+    document.getElementById("rOrgLabel").textContent = regRole==="company" ? "Company name" : "Your trade (e.g. Mechanical Engineer)";
+    document.getElementById("rOrg").placeholder = regRole==="company" ? "e.g. Northgate Foods Ltd" : "e.g. Mechanical Maintenance Engineer";
+  });
+});
+document.getElementById("regForm").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  var ok = true;
+  ok = markInvalid(document.getElementById("rName"), !document.getElementById("rName").value.trim()) && ok;
+  ok = markInvalid(document.getElementById("rOrg"), !document.getElementById("rOrg").value.trim()) && ok;
+  ok = markInvalid(document.getElementById("rEmail"), !validEmail(document.getElementById("rEmail").value)) && ok;
+  ok = markInvalid(document.getElementById("rPass"), document.getElementById("rPass").value.length < 8) && ok;
+  if(!ok) return;
+  var name = document.getElementById("rName").value.trim().split(" ")[0];
+  document.getElementById("regSuccessText").textContent = "Thanks, " + name + " — your free " + (regRole==="company" ? "company" : "contractor") + " account would now be ready. This demo hasn't created a real account or stored anything.";
+  document.getElementById("regSuccess").classList.add("show");
+  document.getElementById("regSuccess").scrollIntoView({behavior:"smooth", block:"center"});
+});
+document.getElementById("contactForm").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  var ok = true;
+  ok = markInvalid(document.getElementById("cName"), !document.getElementById("cName").value.trim()) && ok;
+  ok = markInvalid(document.getElementById("cEmail"), !validEmail(document.getElementById("cEmail").value)) && ok;
+  ok = markInvalid(document.getElementById("cMsg"), document.getElementById("cMsg").value.trim().length < 5) && ok;
+  if(!ok) return;
+  document.getElementById("contactSuccess").classList.add("show");
+  showToast("Thanks — your message has been noted (demo).");
+});
+
+/* settings demo toggles */
+document.querySelectorAll(".demo-toggle").forEach(function(t){
+  t.addEventListener("change", function(){ showToast("Demo setting " + (this.checked ? "on" : "off") + " — nothing is saved in this preview."); });
+});
+document.querySelectorAll(".signout-btn").forEach(function(b){
+  b.addEventListener("click", function(){ b.textContent = "Signed out"; b.disabled = true; showToast("That device has been signed out (demo)."); });
+});
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape"){ document.getElementById("profileModal").classList.remove("open"); closeEvent(); }
+});
+</script>
+</body>
+</html>
